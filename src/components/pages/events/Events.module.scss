@@ -1,0 +1,201 @@
+@keyframes slideIn {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(100%);
+    }
+}
+
+.eventCard {
+    background: #232325;
+    border: 0.8px solid #F5F5F51A;
+    height: fit-content;
+    gap: 10px;
+    border-radius: 20px;
+    padding: 16px 12px;
+
+    .eventCardContent {
+        gap: 10px;
+
+        .eventCardAbout {
+            gap: 12px;
+
+            .eventCardTextContainer {
+                gap: 8px;
+
+                .eventCardTitle {
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 14px;
+                    color: white;
+                }
+
+                .eventCardAward {
+                    gap: 4px;
+
+                    .tokenPreview {
+                        width: 16px;
+                        height: 16px;
+                    }
+
+                    .eventCardAwardValue {
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 16.8px;
+                        color: white;
+
+                        span:not(.symbol) {
+                            font-family: "Geist Mono", monospace;
+                        }
+                    }
+                }
+            }
+
+            .progressBarWrapper {
+                position: relative;
+                width: 177px;
+                height: 16px;
+                border-radius: 5px;
+                background: #434145;
+
+                .progressBarIndicator {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+
+                    background: linear-gradient(90deg, #CAA2F4 0%, #8A2EE8 50%, #3A1262 100%);
+                    box-shadow: 4px -4px 16.6px 0px #8A2EE8 inset,
+                        -4px 4px 19px 0px #FFFFFF40 inset,
+                        0px 0px 15.1px 0px #8A2EE880,
+                        4px -4px 16.6px 0px #8A2EE8 inset,
+                        -4px 4px 19px 0px #FFFFFF40 inset,
+                        0px 0px 15.1px 0px #8A2EE880;
+                    border-radius: inherit;
+                }
+
+                .progressBarValue {
+                    font-family: "Geist Mono", monospace;
+                    font-weight: 500;
+                    font-size: 11px;
+                    color: white;
+                    opacity: 30%;
+                    margin-left: auto;
+                    margin-right: 4px;
+                    z-index: 5;
+                }
+            }
+        }
+    }
+
+    button {
+        outline: none;
+        border: none;
+        background: none;
+
+        &.getAwardButton {
+            width: 85px;
+            height: 40px;
+            padding-right: 14px;
+            padding-left: 14px;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #CAA2F4 0%, #8A2EE8 50%, #3A1262 100%);
+            box-shadow: 4px -4px 16.6px 0px #8A2EE8 inset,
+                -4px 4px 19px 0px #FFFFFF40 inset,
+                0px 0px 15.1px 0px #8A2EE880,
+                4px -4px 16.6px 0px #8A2EE8 inset,
+                -4px 4px 19px 0px #FFFFFF40 inset,
+                0px 0px 15.1px 0px #8A2EE880;
+            font-weight: 600;
+            font-size: 13px;
+            line-height: 13px;
+            color: white;
+        }
+    }
+}
+
+.dailyRewardCard {
+    position: relative;
+    width: calc(100% / 4 - 12px);
+    height: calc(104px - 14px);
+    border: 0.8px solid #F5F5F51A;
+    overflow: hidden;
+    gap: 13.5px;
+    border-radius: 10px;
+    padding-bottom: 12px;
+
+    &::before {
+        position: absolute;
+        z-index: -1;
+        content: '';
+        display: inline-block;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: #232325;
+        backdrop-filter: blur(13.300000190734863px)
+    }
+
+    &.achieved {
+        .dailyRewardCardDayValue {
+            background: linear-gradient(90deg, #CAA2F4 0%, #8A2EE8 50%, #3A1262 100%);
+            box-shadow: 4px -4px 16.6px 0px rgba(138, 46, 232, 1) inset,
+                -4px 4px 19px 0px rgba(255, 255, 255, 0.25) inset,
+                0px 0px 15.1px 0px rgba(138, 46, 232, 0.5),
+                4px -4px 16.6px 0px rgba(138, 46, 232, 1) inset,
+                -4px 4px 19px 0px rgba(255, 255, 255, 0.25) inset,
+                0px 0px 15.1px 0px rgba(138, 46, 232, 0.5);
+            color: rgba(255, 255, 255, 1);
+        }
+    }
+
+    .dailyRewardCardDayValue {
+        width: 100%;
+        height: calc(24px - 12px);
+        padding-top: 6px;
+        padding-bottom: 6px;
+        background: #F5F5F51A;
+        font-family: "Geist Mono", monospace;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 11.7px;
+        color: rgba(255, 255, 255, .3);
+    }
+
+    .dailyRewardAwardPreview {
+        width: 28px;
+        height: 28px;
+
+        img {
+            box-shadow: 0px 0px 11.9px 0px rgba(141, 72, 255, 0.7);
+            border-radius: 1000px;
+        }
+
+    }
+
+    .dailyRewardContainer {
+        .dailyRewardValue {
+            font-family: "Geist Mono", monospace;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 13.5px;
+            color: rgb(195, 119, 246);
+            text-shadow:
+                4px -4px 16.6px rgba(138, 46, 232, 1),
+                -4px 4px 19px rgba(255, 255, 255, 0.25),
+        }
+    }
+}

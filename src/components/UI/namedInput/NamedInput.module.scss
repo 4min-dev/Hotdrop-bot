@@ -1,0 +1,43 @@
+.namedInputContainer {
+    gap: 8px;
+
+    .inputName {
+        font-family: "Geist Mono", sans-serif;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 120%;
+        color: rgba(255, 255, 255, .5)
+    }
+
+    .namedInput {
+        position: relative;
+        height: calc(52px - 4px);
+        border-radius: 16px;
+        padding-right: 12px;
+        padding-left: 16px;
+        border: 2px solid rgba(245, 245, 245, 0.15);
+        z-index: 2;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 140%;
+        color:white;
+        background:none;
+        outline: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &::before {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            content: '';
+            display: inline-block;
+            z-index: -1;
+            backdrop-filter: blur(44.20000076293945px);
+            border-radius: inherit;
+        }
+    }
+}

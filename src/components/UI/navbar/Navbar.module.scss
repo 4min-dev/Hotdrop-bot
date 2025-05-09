@@ -1,0 +1,44 @@
+.navbar {
+    position: fixed;
+    gap: 8px;
+    bottom: 20px;
+    border-radius: 1000px;
+    padding: 4px;
+    width: calc(350px - (4px * 2));
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1.5px solid #1F1F1F1A;
+    z-index: 50;
+
+    &::before {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        content: '';
+        display: inline-block;
+        backdrop-filter: blur(8.699999809265137px);
+        z-index: -1;
+        border-radius: inherit;
+    }
+
+    .navbarLinkCard {
+        width: 62px;
+        height: 62px;
+        border-radius: 1000px;
+        background: rgba(59, 59, 59, 0.7);
+
+        svg path {
+            stroke: white;
+        }
+
+        &.active {
+            background: white;
+
+            svg path {
+                stroke: #8B31E5
+            }
+        }
+    }
+}

@@ -1,0 +1,37 @@
+.imagePreview {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 10px;
+    z-index: 2;
+
+    &::before {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+        content: '';
+        display: inline-block;
+        backdrop-filter: blur(13.899999618530273px)
+    }
+
+    &::before {
+        position: absolute;
+        left: 50%;
+        right: 0;
+        top: 50%;
+        bottom: 0;
+        z-index: -1;
+        transform: translate(-50%, -50%);
+        width: 85%;
+        height: 85%;
+        border-radius: 1000px;
+        filter: blur(5px);
+        content: '';
+        display: inline-block;
+        background: var(--background-color);
+    }
+}

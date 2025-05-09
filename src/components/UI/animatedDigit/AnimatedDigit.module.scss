@@ -1,0 +1,30 @@
+.timeoutValueContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 2rem;
+  }
+  
+  .digitGroup {
+    display: flex;
+    gap: 0.2rem;
+  }
+  
+  .digitWrapper {
+    overflow: hidden;
+    height: 2em;
+    position: relative;
+  }
+  
+  .digitContainer {
+    position: absolute;
+    top: 0;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .number {
+    height: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

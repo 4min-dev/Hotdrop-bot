@@ -1,0 +1,299 @@
+.referalPageContainer {
+    position: relative;
+
+    &::before {
+        position: absolute;
+        left: -20px;
+        right: -20px;
+        top: -120px;
+        content: '';
+        z-index: -1;
+        transform: rotate(180deg);
+        display: inline-block;
+        height: 257px;
+        background-image: url('/src/static/img/rb-gradient.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        border-top-right-radius: 40px;
+        border-top-left-radius: 40px;
+        padding-bottom: 20px;
+    }
+
+    .referalPageHeading {
+        margin-top: 32px;
+        padding-bottom: 12px;
+
+        .referalPageTitle {
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 16.5px;
+            color: white;
+            opacity: 50%;
+        }
+
+        .referalPageAmountContainer {
+            gap: 8px;
+            margin-top: 12px;
+
+            .referalPageAmount {
+                font-weight: 600;
+                font-size: 40px;
+                line-height: 40px;
+                color: white;
+
+                .opacity {
+                    color: rgba(255, 255, 255, 0.5);
+                }
+            }
+
+            .referalAmountPreview {
+                width: 36px;
+                height: 36px;
+                border-radius: 1000px;
+                background: rgba(255, 255, 255, 0.15);
+            }
+        }
+
+        .getReferalWalletButton {
+            position: relative;
+            width: 173px;
+            height: 44px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 16px;
+            color: transparent;
+            background: url('/src/static/img/rb-gradient.jpg') no-repeat 16px / cover;
+            -webkit-background-clip: text;
+            background-clip: text;
+            outline: none;
+            border: none;
+            margin-top: 24px;
+
+            &::before {
+                position: absolute;
+                content: '';
+                display: inline-block;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                z-index: -1;
+                background: rgba(255, 255, 255, 1);
+                backdrop-filter: blur(10.899999618530273px);
+                border-radius: inherit;
+            }
+        }
+    }
+
+    .referalPageHint {
+        height: fit-content;
+        margin-top: 32px;
+        gap: 24px;
+        border-radius: 28px;
+        padding: 20px;
+        background: rgba(35, 35, 37, 1);
+
+        .referalPageTextContainer {
+            gap: 8px;
+            max-width: 80%;
+
+            .referalPageTitle {
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 24px;
+                color: white;
+            }
+
+            .referalPageDescription {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 16.8px;
+                color: white;
+
+                .tokensValue {
+                    color: rgba(157, 73, 241, 1);
+                    font-weight: 600;
+                }
+            }
+        }
+
+        .closeButtonHint {
+            position: relative;
+            outline: none;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 1000px;
+            background: none;
+
+            &::before {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                content: '';
+                display: inline-block;
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(7.262500286102295px);
+                box-shadow: 0px 0px 14.96px 0px rgba(54, 28, 86, 0.06);
+                border-radius: inherit;
+            }
+
+            svg {
+                position: relative;
+                z-index: 2;
+            }
+        }
+    }
+
+    .referalsBlock {
+        gap: 16px;
+        margin-top: 24px;
+
+        .referalsBlockTitleContainer {
+            .referalsBlockTitle {
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 20px;
+                color: rgba(255, 255, 255, .5);
+
+                .amount {
+                    color: white;
+                }
+            }
+        }
+
+        .referalCardsContainer {
+            gap: 8px;
+
+            .referalCard {
+                height: fit-content;
+                gap: 12px;
+                border-radius: 24px;
+                padding: 16px;
+                background: rgba(35, 35, 37, 1);
+
+                .aboutReferalContainer {
+                    gap: 12px;
+
+                    .referalAvatar {
+                        width: 48px;
+                        height: 48px;
+                        border-radius: 16px;
+                        background: rgba(68, 66, 70, 1);
+
+                        img {
+                            width: 36px;
+                            height: 36px;
+                        }
+                    }
+
+                    .textContainer {
+                        gap: 8px;
+
+                        .referalUsername {
+                            font-weight: 600;
+                            font-size: 18px;
+                            line-height: 18px;
+                            color: white;
+                        }
+
+                        .referalNumericDataContainer {
+                            gap: 12px;
+
+                            .referalTotalAmount {
+                                gap: 6px;
+                                padding-right: 12px;
+                                border-right: 1px solid #6464644D;
+
+                                .referalTotalProfitPreview {
+                                    width: 20px;
+                                    height: 20px;
+                                    border-radius: 1000px;
+                                    box-shadow: 0px 0px 11.9px 0px #8D48FFB2;
+                                }
+
+                                .referalTotalProfit {
+                                    font-family: "Geist Mono", monospace;
+                                    font-weight: 500;
+                                    font-size: 14px;
+                                    line-height: 16.8px;
+                                    color: white;
+                                }
+                            }
+
+                            .referalLevel {
+                                width: fit-content;
+                                height: calc(17px - (3px * 2));
+                                border-radius: 7px;
+                                padding: 3px 5px;
+                                background: rgba(139, 45, 233, 0.15);
+                                border: 1px solid rgba(139, 45, 233, 0.4);
+                                color: #9D49F1;
+                                font-weight: 600;
+                                font-size: 13px;
+
+
+                                .mono {
+                                    font-family: "Geist Mono", monospace;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .referalTableNumericId {
+                    font-family: "Geist Mono", monospace;
+                    font-weight: 500;
+                    font-weight: 500;
+                    font-size: 32px;
+                    line-height: 32px;
+                    color: white;
+
+                    .symbol {
+                        color: rgba(255, 255, 255, 0.5);
+                        font-size: 24px;
+
+                    }
+                }
+
+                &:first-child {
+                    background: rgba(255, 255, 255, 1);
+                    border: 1px solid rgba(100, 100, 100, 0.3);
+
+                    .aboutReferalContainer {
+                        .referalAvatar {
+                            background: rgba(235, 235, 235, 1);
+                        }
+
+                        .textContainer {
+                            .referalUsername {
+                                color: #232325;
+                            }
+
+                            .referalNumericDataContainer {
+                                .referalTotalAmount {
+                                    border-right: 1px solid rgba(100, 100, 100, .2);
+
+                                    .referalTotalProfit {
+                                        color: #232325;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .referalTableNumericId {
+                        color: #9D49F1;
+
+                        &::first-letter {
+                            color: #9D49F1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

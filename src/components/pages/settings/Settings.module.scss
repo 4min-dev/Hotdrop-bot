@@ -1,0 +1,105 @@
+.settingsPageTitle {
+    display: inline-block;
+    margin-top: 40px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 26.4px;
+    color: white;
+}
+
+.settingCardsContainer {
+    margin-top: 24px;
+
+    .settingCard {
+        position: relative;
+        height: calc(72px - (16px * 2));
+        gap: 10px;
+        border-radius: 24px;
+        padding: 16px 12px 16px 16px;
+        z-index: 5;
+        border: 0.8px solid rgba(245, 245, 245, 0.1);
+
+        &:nth-child(1) {
+            opacity: .5;
+        }
+
+        &:nth-child(2) {
+            border-radius: 24px 24px 0px 0px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, .1);
+            margin-top: 8px;
+        }
+
+        &:nth-child(3) {
+            border-radius: 0px 0px 24px 24px;
+            padding-top: 16px;
+        }
+
+        &:last-child {
+            border: 0.8px solid rgba(255, 0, 0, 0.1);
+            margin-top: 8px;
+
+            svg path {
+                stroke: rgba(255, 0, 0, 1);
+            }
+
+            &::before {
+                background: rgba(255, 0, 0, 0.15);
+            }
+
+            .aboutSettingContainer {
+                .aboutSettingTextContainer {
+                    .settingTitle {
+                        color: rgba(255, 0, 0, 1);
+                    }
+                }
+            }
+        }
+
+        &::before {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+            content: '';
+            display: inline-block;
+            border-radius: inherit;
+            background: rgba(35, 35, 37, 1);
+            backdrop-filter: blur(44.20000076293945px)
+        }
+
+        .aboutSettingContainer {
+            gap: 10px;
+
+            .aboutSettingTextContainer {
+                gap: 4px;
+
+                .settingTitle {
+                    font-weight: 600;
+                    font-size: 16px;
+                    line-height: 16px;
+                    color: white;
+                }
+
+                .settingsDescription {
+                    font-weight: 500;
+                    font-size: 13px;
+                    line-height: 15.6px;
+                    color: rgba(255, 255, 255, .5)
+                }
+            }
+        }
+    }
+}
+
+.copyright {
+    position: fixed;
+    left:20px;
+    bottom:20px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    color:rgba(255, 255, 255, .5)
+}

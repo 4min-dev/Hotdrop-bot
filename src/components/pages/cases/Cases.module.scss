@@ -1,0 +1,50 @@
+.itemCard {
+    width: calc(100% / 2 - 38px);
+    border-radius: 16px;
+    padding: 16px;
+    border-bottom: 4px solid;
+
+    .itemAmountAndType {
+        .itemType {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 16px;
+            color: white;
+            opacity: 50%;
+        }
+
+        .itemAmont {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 14px;
+            color: white;
+        }
+    }
+
+    .itemPreview {
+        width: 137px;
+        height: 137px;
+        margin-top: 20px;
+    }
+
+    .itemAboutContainer {
+        margin-top: 12px;
+        gap: 4px;
+
+        .itemTitle {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 16px;
+            color: white;
+        }
+
+        .itemRarity {
+            font-family: "Geist Mono", sans-serif;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 14.4px;
+            color:white;
+            opacity: 50%;
+        }
+    }
+}

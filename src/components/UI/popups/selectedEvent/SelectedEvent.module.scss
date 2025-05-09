@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+.selectedEventPopup {
+    position: fixed;
+    left:0;
+    right:0;
+    padding: 20px 20px 25px 20px;
+    border-radius: 36px 36px 0px 0px;
+    border-top: 4px solid rgba(60, 60, 60, 1);
+    background: rgba(23, 23, 25, 1);
+    bottom:0;
+    height: fit-content;
+    top:auto !important;
+
+    .closePopupButton {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        outline: none;
+        border: none;
+        background: none;
+        border-radius: 1000px;
+        z-index: 2;
+        width: 32px;
+        height: 32px;
+
+        &::before {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+            content: '';
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8.300000190734863px);
+            box-shadow: 0px 0px 17.1px 0px rgba(54, 28, 86, 0.06);
+            border-radius: inherit;
+        }
+    }
+
+    .selectedEventHeading {
+        margin-top: 40px;
+
+        .selectedEventPreview {
+            position: relative;
+            width: 96px;
+            height: 96px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 0.8px solid rgba(89, 89, 89, 1);
+
+            &::before {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                content: '';
+                display: inline-block;
+                background: var(--background-color);
+                border-radius: 1000px;
+                filter: blur(10px);
+                z-index: -1;
+            }
+        }
+
+        .selectedEventTitle {
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 100%;
+            color: white;
+            margin-top: 16px;
+        }
+
+        .selectedEventReward {
+            gap: 4px;
+            margin-top: 16px;
+
+            .rewardValue {
+                font-family: "Geist Mono", monospace;
+                font-weight: 600;
+                font-size: 32px;
+                line-height: 100%;
+                color: #9E46F9;
+                filter: drop-shadow(0px 0px 7.1px rgba(158, 70, 249, 0.25));
+
+
+                .symbol {
+                    font-family: 'Gilroy', sans-serif !important;
+                }
+            }
+        }
+
+
+    }
+
+    .selectedEventMainUi {
+        position: relative;
+        padding: 11.5px 12px 11.5px 16px;
+        border-radius: 1000px;
+        margin-top: 32px;
+
+        .selectedEventCopyContainer {
+            height: 36px;
+            position: relative;
+            padding: 0px 12px 0px 16px;
+            border-radius: 1000px;
+            background: rgba(255, 255, 255, 0.1);
+
+            .selectedEventLinkToCopy {
+                font-weight: 400;
+                font-size: 13px;
+                line-height: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                max-width: 90%;
+                color: rgba(255, 255, 255, .5);
+            }
+
+            .selectedEventCopyLinkButton {
+                background:none;
+                outline: none;
+                border:none;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: 12px;
+            }
+        }
+
+        .hintContainer {
+            gap: 8px;
+            padding: 12px 20px 12px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(245, 245, 245, 0.1);
+            margin-top: 16px;
+
+            .hint {
+                max-width: 90%;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 130%;
+                color: white;
+            }
+        }
+
+        .etapsContainer {
+            gap: 8px;
+            margin-top: 16px;
+
+            .etapCard {
+                gap: 6px;
+
+                .etapNumber {
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 1000px;
+                    background: rgba(255, 255, 255, 0.1);
+                    font-family: "Roboto Mono", monospace;
+                    font-weight: 500;
+                    font-size: 13px;
+                    line-height: 110.00000000000001%;
+                    color: white;
+                }
+
+                .etapTitle {
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 100%;
+                    color: rgba(255, 255, 255, .5)
+                }
+            }
+        }
+
+        .completeButton {
+            outline: none;
+            border:none;
+            margin-top: 40px;
+            height: 48px;
+            border-radius: 16px;
+            background: linear-gradient(90deg, #CAA2F4 0%, #8A2EE8 50%, #3A1262 100%);
+            box-shadow: 0px 0px 15.1px 0px rgba(138, 46, 232, 0.5),
+                4px -4px 16.6px 0px rgba(138, 46, 232, 1) inset,
+                -4px 4px 19px 0px rgba(255, 255, 255, 0.25) inset;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 100%;
+            color:white;
+        }
+    }
+}

@@ -1,0 +1,97 @@
+.steamAccountPage {
+    position: relative;
+    margin-top: 40px;
+
+    .pageTitle {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 110.00000000000001%;
+        color: white;
+    }
+
+    .steamAccountPageMainUi {
+        margin-top: 24px;
+
+        .steamConnectLink {
+            position: relative;
+            height: 64px;
+            border-radius: 20px;
+            padding-right: 12px;
+            padding-left: 16px;
+            border: 0.8px solid rgba(245, 245, 245, 0.1);
+            z-index: 2;
+            margin-top: 12px;
+            margin-bottom: 16px;
+
+            &::before {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                z-index: -1;
+                content: '';
+                display: inline-block;
+                background: rgba(35, 35, 37, 1);
+                border-radius: inherit;
+                backdrop-filter: blur(44.20000076293945px)
+            }
+
+            .steamConnectLinkUi {
+                gap: 8px;
+
+                .steamConnectLinkTitle {
+                    font-weight: 600;
+                    font-size: 16px;
+                    line-height: 100%;
+                    color: white;
+                    text-shadow: 0px 0px 5.7px rgba(255, 255, 255, 0.25);
+                }
+            }
+
+            .steamConnectLinkStatus {
+                &.connectedStatus {
+                    padding: 5px 8px;
+                    border: 1px solid rgba(11, 179, 11, 1);
+                    box-shadow: 0px 0px 7.3px 0px rgba(11, 179, 11, 0.25);
+                    border-radius: 23px;
+                    font-family: "Geist Mono", sans-serif;
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 120%;
+                    color: rgba(11, 179, 11, 1);
+                }
+
+                &.notConnectedStatus {
+                    background: linear-gradient(90deg, #CAA2F4 0%, #8A2EE8 50%, #3A1262 100%);
+                    height: 40px;
+                    width: 103px;
+                    box-shadow: 4px -4px 16.6px 0px rgba(138, 46, 232, 1) inset,
+                        -4px 4px 19px 0px rgba(255, 255, 255, 0.25) inset,
+                        0px 0px 15.1px 0px rgba(138, 46, 232, 0.5),
+                        4px -4px 16.6px 0px rgba(138, 46, 232, 1) inset,
+                        -4px 4px 19px 0px rgba(255, 255, 255, 0.25) inset,
+                        0px 0px 15.1px 0px rgba(138, 46, 232, 0.5);
+                    font-weight: 600;
+                    font-size: 13px;
+                    line-height: 100%;
+                    color: white;
+                    border-radius: 12px;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .copyright {
+        position: fixed;
+        left: 20px;
+        bottom: 20px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 100%;
+        letter-spacing: 2%;
+        color: white;
+        opacity: .5;
+    }
+}

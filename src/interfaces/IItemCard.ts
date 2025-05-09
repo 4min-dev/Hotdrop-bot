@@ -1,0 +1,19 @@
+export interface IItemCard {
+    id:number,
+    type:string,
+    typeName?:string,
+    amount:number,
+    img:string,
+    title:string,
+    rarity:string,
+    hint?:string,
+    price:number,
+    rarityBackground:string,
+    topShadow?:string,
+    rarityButton?:string,
+    rarityShadow?:string,
+    rarityBorder?:string,
+    rarityCategoryShadow?:string,
+    rarityCategoryBackground?:string,
+    popupRarityBorder?:string
+}

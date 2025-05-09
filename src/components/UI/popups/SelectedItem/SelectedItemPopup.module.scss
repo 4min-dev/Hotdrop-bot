@@ -1,0 +1,214 @@
+.selectedItemPopup {
+    min-height: calc(508px - 110px);
+    max-height: calc(508px - 110px);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    overflow: auto;
+    border-top-left-radius: 36px;
+    border-top-right-radius: 36px;
+    border-top: 4px solid;
+    padding: 60px 20px 57px 20px;
+    z-index: 5;
+
+    &::before {
+        position: absolute;
+        top:50px;
+        left:50%;
+        width: 316px;
+        height: 330px;
+        transform: translateX(-50%);
+        content: '';
+        display: inline-block;
+        background:var(--background-color);
+        border-radius: 1000px;
+        filter: blur(40px);
+        z-index: -1;
+    }
+
+    &::after {
+        position: absolute;
+        bottom:0;
+        left:50%;
+        width: 250px;
+        height: 200px;
+        transform: translateX(-50%);
+        content: '';
+        display: inline-block;
+        background:rgba(0, 0, 0, 1);
+        border-radius: 1000px;
+        filter: blur(40px);
+        z-index: -1;
+    }
+
+    .blackElem1 {
+        position: absolute;
+        bottom:0;
+        left:0;
+        width: 250px;
+        height: 150px;
+        transform: translateX(-50%);
+        display: inline-block;
+        background:rgba(0, 0, 0, .2);
+        border-radius: 1000px;
+        filter: blur(40px);
+    }
+
+    .blackElem2 {
+        position: absolute;
+        bottom:0;
+        right:0;
+        width: 50px;
+        height: 150px;
+        transform: translateX(-50%);
+        display: inline-block;
+        background:rgba(0, 0, 0, 1);
+        border-radius: 1000px;
+        filter: blur(40px);
+    }
+
+    .closePopupButton {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        width: 32px;
+        height: 32px;
+        outline: none;
+        border: none;
+        border-radius: 1000px;
+        background: #FFFFFF33;
+        backdrop-filter: blur(8.300000190734863px);
+        box-shadow: 0px 0px 17.1px 0px #361C560F;
+    }
+
+    .selectedItemPopupContainer {
+        gap: 20px;
+
+        .selectedItemPreview {
+            width: 137px;
+            height: 137px;
+            z-index: 2;
+        }
+
+        .aboutSelectedItem {
+            gap: 12px;
+
+            .selectedItemTitle {
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 24px;
+                color: white;
+            }
+
+            .selectedItemTags {
+                gap: 4px;
+
+                span {
+                    width: fit-content;
+                    height: calc(28px - 4px);
+                    border-radius: 23px;
+                    padding-top: 2px;
+                    padding-right: 12px;
+                    padding-bottom: 2px;
+                    padding-left: 12px;
+                    font-family: "Geist Mono", monospace;
+                    font-weight: 500;
+                    font-size: 14px;
+                    color: white;
+
+                    &.selectedItemAmount {
+                        background: rgba(255, 255, 255, 0.2);
+
+                        .text {
+                            padding:0px 0px 0px 4px;
+                            font-weight: 600;
+                            font-family: 'Gilroy', sans-serif !important;
+                        }
+                    }
+                }
+            }
+        }
+
+        .selectedItemHint {
+            gap: 8px;
+            width: fit-content;
+            border: 1px solid rgba(245, 245, 245, 0.2);
+            padding: 12px 12px 16px 12px;
+            border-radius: 16px;
+            z-index: 20;
+
+            .selectedItemHintValue {
+                max-width: 241px;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 18.2px;
+                color: white;
+            }
+        }
+    }
+
+    .selectedItemUiButtons {
+        margin-top: 40px;
+        gap: 8px;
+        width: 100%;
+        z-index: 20;
+
+        button {
+            height: 48px;
+            border-radius: 10000px;
+            outline: none;
+            border: none;
+
+            &.sellItemButton {
+                padding-left: 16px;
+                padding-right: 16px;
+                width: 193px;
+                position: relative;
+                z-index: 5;
+
+                &.buyButton {
+                    width: 100%;
+                }
+
+                .sellItemPriceContainer {
+                    gap: 4px;
+
+                    .buttontext {
+                        font-family: "Geist Mono", monospace;
+                        font-weight: 500;
+                        font-size: 16px;
+                        color: white;
+                    }
+                }
+            }
+
+            &.exportItemButton {
+                position: relative;
+                width: 149px;
+                background: none;
+
+                &::before {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    content: '';
+                    display: inline-block;
+                    background: rgba(255, 255, 255, 0.2);
+                    backdrop-filter: blur(9.199999809265137px);
+                    border-radius: inherit;
+                }
+            }
+
+            .buttonText {
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 16px;
+                color: white;
+                position: relative;
+            }
+        }
+    }
+}

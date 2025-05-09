@@ -1,0 +1,75 @@
+.itemCard {
+    height: fit-content;
+    border-radius: 20px;
+    padding: 12px;
+    gap: 10px;
+    background: #232325;
+    border: 0.8px solid #F5F5F51A;
+    width: 100%;
+
+    .aboutItemCard {
+        gap: 10px;
+
+        .aboutItemTextContainer {
+            gap: 8px;
+
+            .itemTitle {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 14px;
+                color: white;
+            }
+
+            .itemRarity {
+                font-family: "Geist Mono", sans-serif;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 14.4px;
+                color: white;
+                padding: 3.5px 8px;
+                border-radius: 1000px;
+            }
+        }
+    }
+
+    .purchaseItemButton {
+        width: fit-content;
+        height: 40px;
+        border-radius: 13px;
+        gap: 12px;
+        padding-right: 14px;
+        padding-left: 14px;
+        outline: none;
+        border: none;
+        background: linear-gradient(90deg, #CAA2F4 0%, #8A2EE8 50%, #3A1262 100%);
+        box-shadow: 4px -4px 16.6px 0px #8A2EE8 inset,
+            -4px 4px 19px 0px #FFFFFF40 inset,
+            0px 0px 15.1px 0px #8A2EE880,
+            4px -4px 16.6px 0px #8A2EE8 inset,
+            -4px 4px 19px 0px #FFFFFF40 inset,
+            0px 0px 15.1px 0px #8A2EE880;
+
+        .buttonText {
+            font-weight: 600;
+            font-size: 13px;
+            line-height: 13px;
+            color: white;
+        }
+
+        .itemPriceContainer {
+            gap: 2px;
+
+            .itemPrice {
+                font-weight: 500;
+                font-size: 13px;
+                line-height: 13px;
+                color: white;
+                gap:4px;
+
+                .pricePart {
+                    font-family: "Geist Mono", sans-serif;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,270 @@
+#selectedGamePopupOverlay {
+    padding-bottom: 118px;
+
+    .selectedGamePopup {
+        position: relative;
+        height: 100%;
+        overflow: auto;
+        background: rgba(23, 23, 25, 1);
+        padding: 0px 20px 118px 20px;
+    
+        .selectedGamePreview {
+            position: absolute;
+            height: 363px;
+            left: 0;
+            right: 0;
+            overflow: hidden;
+    
+            img {
+                position: relative;
+                width: 371px;
+                height: 345px;
+                right: -46px;
+                bottom: -140px;
+            }
+        }
+    
+        .selectedGamePopupHeading {
+            position: relative;
+            z-index: 2;
+            margin-top: 102px;
+    
+            .userRecordCard {
+                gap: 6px;
+    
+                .previewRecord {
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 1000px;
+                }
+    
+                .selectedGameCardTextContainer {
+                    gap: 6px;
+    
+                    .selectedGameHeadingCardTitle {
+                        font-weight: 500;
+                        font-size: 12px;
+                        line-height: 12px;
+                        color: white;
+                        opacity: 50%;
+                    }
+    
+                    .selectedGameHeadingCardDescription {
+                        font-weight: 600;
+                        font-size: 14px;
+                        line-height: 15.4px;
+                        color: white;
+                    }
+                }
+            }
+    
+            .avaliableTicketsCard {
+                position: relative;
+                gap: 5px;
+                z-index: 2;
+                padding-right: 16px;
+                padding-left: 16px;
+                height: 44px;
+                border-radius: 1000px;
+    
+                &::before {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    z-index: -1;
+                    border-radius: inherit;
+                    content: '';
+                    display: inline-block;
+                    background: rgba(255, 255, 255, 0.2);
+                    backdrop-filter: blur(18.100000381469727px)
+                }
+    
+                .avaliableTicketsContainer {
+                    font-family: "Geist Mono", sans-serif;
+                    font-weight: 600;
+                    font-size: 14px;
+                    line-height: 15.4px;
+                    color: rgba(255, 255, 255, .5);
+    
+                    &::first-letter {
+                        color: white;
+                    }
+                }
+            }
+        }
+    
+        .selectedGamePopupContent {
+            position: relative;
+            z-index: 2;
+            margin-top: 185px;
+    
+            .selectedGameUserResults {
+                position: relative;
+                border-radius: 20px;
+                padding: 18.5px 16px;
+                z-index: 2;
+    
+                &::before {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    content: '';
+                    display: inline-block;
+                    z-index: -1;
+                    background: rgba(116, 116, 116, 0.2);
+                    backdrop-filter: blur(13.300000190734863px);
+                    border-radius: inherit;
+                }
+    
+                .selectedGameResultsCard {
+                    gap: 8px;
+    
+                    &:nth-child(1) {
+                        padding-right: 35px;
+                        border-right: 2px solid rgba(255, 255, 255, .15);
+                    }
+    
+                    &:nth-child(2) {
+                        padding-left: 35px;
+                    }
+    
+                    .selectedGameResultsCardTextContainer {
+                        gap: 4px;
+    
+                        .selectedGameResultsCardTitle {
+                            font-weight: 500;
+                            font-size: 12px;
+                            line-height: 12px;
+                            color: white;
+                            opacity: 50%;
+                        }
+    
+                        .selectedGameResultsCardDescription {
+                            font-weight: 600;
+                            font-size: 14px;
+                            line-height: 15.4px;
+                            color: white;
+                            white-space: nowrap;
+                        }
+                    }
+                }
+            }
+    
+            .selectedGameResultsPopupBlocksContainer {
+                margin-top: 30px;
+                gap: 32px;
+    
+                .selectedGameResultsPopupBlock {
+                    gap: 8px;
+    
+                    .selectedGameResultsPopupBlockType {
+                        padding: 5px 8px;
+                        width: fit-content;
+                        height: calc(22px - 10px);
+                        border-radius: 1000px;
+                        background: rgba(255, 255, 255, 0.1);
+                        font-weight: 500;
+                        font-size: 12px;
+                        color: rgba(255, 255, 255, .5)
+                    }
+    
+                    .selectedGameResultsPopupBlockTitleContainer {
+                        gap: 12px;
+    
+                        .selectedGameResultsPopupBlockTitle {
+                            font-weight: 700;
+                            font-size: 24px;
+                            line-height: 26.4px;
+                            color: white;
+                        }
+    
+                        .selectedGameResultsPopupBlockDescription {
+                            font-weight: 400;
+                            font-size: 14px;
+                            line-height: 19.6px;
+                            color: rgba(255, 255, 255, .8)
+                        }
+                    }
+    
+                    .selectedGameHowToPlay {
+                        margin-top: 8px;
+                        gap: 12px;
+                        list-style: none;
+                        counter-reset: item;
+                        padding-left: 0;
+                    }
+    
+                    .howPlayElement {
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 19.6px;
+                        color: white;
+                        position: relative;
+                        padding-left: 31px;
+                        counter-increment: item;
+    
+                        &::before {
+                            content: counter(item) "";
+                            position: absolute;
+                            left: 0;
+                            width: 24px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            height: 24px;
+                            border-radius: 1000px;
+                            background: rgba(255, 255, 255, 0.1);
+                            font-weight: 600;
+                            font-size: 14px;
+                            line-height: 14px;
+                            color: white;
+                        }
+    
+                        strong {
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+        }
+    
+        .startGameButton {
+            text-decoration: none;
+            position: fixed;
+            height: 48px;
+            bottom:20px;
+            left:20px;
+            right:20px;
+            outline: none;
+            border:none;
+            z-index: 50;
+            padding-left: 16px;
+            padding-right: 16px;
+            border-radius: 16px;
+            background: linear-gradient(90deg, #CAA2F4 0%, #8A2EE8 50%, #3A1262 100%);
+            box-shadow: 0px 0px 15.1px 0px rgba(138, 46, 232, 0.5),
+                4px -4px 16.6px 0px rgba(138, 46, 232, 1) inset,
+                -4px 4px 19px 0px rgba(255, 255, 255, 0.25) inset;
+    
+            .buttonText {
+                font-weight: 600;
+                font-size: 16px;
+                color: white;
+            }
+    
+            .gamePriceContainer {
+                gap: 4px;
+    
+                .gamePrice {
+                    font-weight: 600;
+                    font-size: 16px;
+                    color:white;
+                }
+            }
+        }
+    }
+}

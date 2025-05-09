@@ -1,0 +1,20 @@
+.saveButton {
+    height: 48px;
+    border-radius: 16px;
+    padding-right: 16px;
+    padding-left: 16px;
+    background: linear-gradient(90deg, #CAA2F4 0%, #8A2EE8 50%, #3A1262 100%);
+    box-shadow: 0px 0px 15.1px 0px rgba(138, 46, 232, 0.5),
+        4px -4px 16.6px 0px rgba(138, 46, 232, 1) inset,
+        -4px 4px 19px 0px rgba(255, 255, 255, 0.25) inset;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 100%;
+    color:white;
+    border:none;
+    outline: none;
+
+    &:disabled {
+        opacity: .5;
+    }
+}

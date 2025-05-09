@@ -1,0 +1,185 @@
+.gameContainer {
+    position: relative;
+    z-index: 50;
+
+    &.gameActive {
+        &::before {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -3;
+            content: '';
+            display: inline-block;
+            background-image: url('/src/static/img/gameBackgroundClearEffect.png');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+    }
+}
+
+.gameHeading {
+    margin-top: 20px;
+
+    .gameTimer {
+        position: relative;
+        z-index: 5;
+        width: fit-content;
+        height: 48px;
+        gap: 8px;
+        border-radius: 1000px;
+        padding-right: 20px;
+        padding-left: 12px;
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+
+        &::before {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            content: '';
+            display: inline-block;
+            z-index: -1;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: inherit;
+            backdrop-filter: blur(13.300000190734863px)
+        }
+
+        .timerValue {
+            font-family: "Geist Mono", monospace;
+            font-weight: 600;
+            font-size: 20px;
+            color: white;
+        }
+    }
+
+    .currentGameBalance {
+        gap: 8px;
+
+        .currentGameBalanceValue {
+            margin-top: 4px;
+            font-family: "Geist Mono", monospace;
+            font-weight: 600;
+            font-size: 24px;
+            color: white;
+            text-shadow: 0px 0px 7.76px 0px rgba(255, 255, 255, 0.55);
+        }
+    }
+}
+
+.gameOverlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    display: inline-block;
+    height: 100vh;
+
+    .gameOverlayTapToken {
+        position: absolute;
+        overflow: visible !important;
+        z-index: 500;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+        }
+    }
+
+    .gameOverlayBottomEffect {
+        position: fixed;
+        bottom: 0px;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: -1;
+    }
+}
+
+.gameOver {
+    position: fixed;
+    padding-right: 20px;
+    padding-left: 20px;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 24px;
+    padding-top: 99px;
+    background: rgba(23, 23, 25, 1);
+
+    .gameOverayBackgroundEffect {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    .gameOverAnimatedGif {
+        position: relative;
+        width: 152px;
+        height: 152px;
+        overflow: visible;
+        padding-bottom: 20px;
+
+        img {
+            position: absolute;
+            width: 152px;
+            overflow: visible !important;
+            height: 152px;
+        }
+    }
+
+
+    .gameOverTitle {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 30px;
+        color: white;
+        margin-top: 16px;
+    }
+
+    .gameResults {
+        gap: 8px;
+        margin-top: 32px;
+
+        .gameResultsContainer {
+            gap: 8px;
+
+            .gameResultsValue {
+                font-family: "Geist Mono", monospace;
+                font-weight: 700;
+                font-size: 32px;
+                color: white;
+            }
+        }
+
+        .gameResultsTitle {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 18.2px;
+            color: white;
+        }
+    }
+
+    .continueButtonAfterGame {
+        position: relative;
+        height: 48px;
+        border-radius: 16px;
+        background: linear-gradient(90deg, #CAA2F4 0%, #8A2EE8 50%, #3A1262 100%);
+        box-shadow: 0px 0px 15.1px 0px rgba(138, 46, 232, 0.5),
+            4px -4px 16.6px 0px rgba(138, 46, 232, 1) inset,
+            -4px 4px 19px 0px rgba(255, 255, 255, 0.25) inset;
+        font-weight: 600;
+        font-size: 16px;
+        color: white;
+        margin-top: auto;
+        width: 100%;
+        text-decoration: none;
+    }
+}

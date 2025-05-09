@@ -1,0 +1,54 @@
+$switch-width: 50px;
+$switch-height: 28px;
+$padding: 2px;
+$slider-size: 24px;
+
+.switch {
+    position: relative;
+    width: calc(#{$switch-width} - #{$padding * 2});
+    height: calc(#{$switch-height} - #{$padding * 2});
+    border-radius: 1000px;
+    padding: $padding;
+    border: 1px solid rgba(157, 73, 241, .1);
+    background: rgba(157, 73, 241, 0.15);
+    transition: all .3s;
+    cursor: pointer;
+
+    input {
+        display: none;
+
+        &:checked+.slider {
+            background: rgba(157, 73, 241, 0.2);
+
+            &::before {
+                background: rgba(157, 73, 241, 1);
+                transform: translateX(calc(#{$switch-width} - #{$slider-size} - #{$padding * 2}));
+            }
+        }
+
+        
+    }
+
+    .slider {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(157, 73, 241, .15);
+        border-radius: 1000px;
+        transition: all .3s;
+
+        &::before {
+            content: '';
+            position: absolute;
+            width: $slider-size;
+            height: $slider-size;
+            left: $padding;
+            top: $padding;
+            background: rgba(157, 73, 241, .5);
+            border-radius: 56px;
+            transition: all .3s;
+        }
+    }
+}

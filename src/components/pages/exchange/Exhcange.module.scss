@@ -1,0 +1,283 @@
+.exchangeTokenCard {
+    height: fit-content;
+    gap: 6px;
+    padding: 32px 20px;
+    position: relative;
+    left: -20px;
+    right: -20px;
+    width: 100%;
+    background: rgba(35, 35, 37, 1);
+    border-radius: 32px;
+
+    &:nth-child(1) {
+        border-radius: 0px 0px 32px 32px;
+    }
+
+    .exchangeAboutTokenContainer {
+        gap: 10px;
+
+        .exchangeAboutTokenTitleContainer {
+            gap: 4px;
+
+            .exchangeAboutTokenTitle {
+                font-weight: 600;
+                font-size: 32px;
+                line-height: 32px;
+                color: white;
+            }
+        }
+
+        .exchangeCardBalanceContainer {
+            gap: 4px;
+
+            .exchangeCardBalanceTitle {
+                font-family: "Geist Mono", sans-serif;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 15.4px;
+                color: rgba(255, 255, 255, .5);
+            }
+
+            .exchangeCardBalanceDescriptionContainer {
+                gap: 3px;
+
+                svg {
+                    margin-bottom: 1px;
+                }
+
+                .exchangeCardBalanceDescription {
+                    font-family: "Geist Mono", monospace;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 15.4px;
+                    color: rgba(255, 255, 255, .5);
+                }
+            }
+        }
+    }
+
+    .exchangeValueInput {
+        font-weight: 500;
+        font-size: 48px;
+        line-height: 48px;
+        outline: none;
+        border: none;
+        background: none;
+        color: white;
+        max-width: 80px;
+
+        &:last-child {
+            &::placeholder {
+                color: rgba(255, 255, 255, .5)
+            }
+        }
+
+        &::placeholder {
+            color: white
+        }
+    }
+
+    .exchangeTokensButton {
+        position: absolute;
+        bottom: -18px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 48px;
+        gap: 8px;
+        border-radius: 1000px;
+        padding-right: 14px;
+        padding-left: 18px;
+        background: linear-gradient(90deg, #CAA2F4 0%, #8A2EE8 50%, #3A1262 100%);
+        box-shadow: 4px -4px 16.6px 0px rgba(138, 46, 232, 1) inset,
+            -4px 4px 19px 0px rgba(255, 255, 255, 0.25) inset,
+            0px 0px 15.1px 0px rgba(138, 46, 232, 0.5),
+            4px -4px 16.6px 0px rgba(138, 46, 232, 1) inset,
+            -4px 4px 19px 0px rgba(255, 255, 255, 0.25) inset,
+            0px 0px 15.1px 0px rgba(138, 46, 232, 0.5);
+        outline: none;
+        border: none;
+
+        .buttonText {
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 16px;
+            color: white;
+        }
+    }
+}
+
+.mainExchangeUi {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    gap: 16px;
+
+    .changeTokensButton {
+        width: 60px;
+        height: 48px;
+        border-radius: 1000px;
+        background: rgba(35, 35, 37, 1);
+        outline: none;
+        border: none;
+    }
+
+    .exchangeValues {
+        gap: 4px;
+
+        .exchangeValueCard {
+            font-family: "Geist Mono", monospace;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 15.4px;
+            color: white;
+
+            .exchangeValueCardGap {
+                gap: 4px;
+            }
+
+            &:nth-child(2) {
+                gap: 4px;
+            }
+
+            .exchangeValueCardAmount {
+                font-family: "Geist Mono", monospace;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 15.4px;
+                color: white;
+            }
+        }
+
+        .exchangeCardsHint {
+            font-family: "Geist Mono", monospace;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 15.4px;
+            color: white;
+        }
+    }
+}
+
+.exchangedContainer {
+    position: fixed;
+    padding-top: 99px;
+    left: -20px;
+    right: -20px;
+    padding-left: 20px;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    padding-right: 20px;
+    background: rgba(23, 23, 25, 1);
+
+    .exchangedPreview {
+        width: 152px;
+        height: 152px;
+        position: relative;
+        overflow: visible;
+        padding-bottom: 20px;
+
+        img {
+            position: absolute;
+            width: 152px;
+            overflow: visible !important;
+            height: 152px;
+        }
+
+    }
+
+    .exchangedTitle {
+        margin-top: 16px;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 30px;
+        color: white;
+    }
+
+    .exchangedTokensContainer {
+        margin-top: 32px;
+        gap: 16px;
+
+        .exchangedTokenContainer {
+            gap: 4px;
+
+            .exchangedTokenValue {
+                font-family: "Geist Mono", monospace;
+                font-weight: 500;
+                font-size: 32px;
+                line-height: 35.2px;
+                color: white;
+                max-width: 200px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+
+    .continueButton {
+        margin-top: auto;
+        width: calc(100% - 40px);
+        text-decoration: none;
+        height: 48px;
+        border-radius: 16px;
+        background: linear-gradient(90deg, #CAA2F4 0%, #8A2EE8 50%, #3A1262 100%);
+        box-shadow: 0px 0px 15.1px 0px rgba(138, 46, 232, 0.5),
+            4px -4px 16.6px 0px rgba(138, 46, 232, 1) inset,
+            -4px 4px 19px 0px rgba(255, 255, 255, 0.25) inset;
+        font-weight: 600;
+        font-size: 16px;
+        color: white;
+        margin-bottom: 24px;
+    }
+}
+
+.calculatePanel {
+    position: fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    transform: translateY(100%);
+    height: calc(374px - (32px + 19px));
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+    padding: 32px 20.5px 19px 20.5px;
+    gap: 12px;
+    background: rgba(35, 35, 37, 1);
+    transition: transform .4s;
+
+    &.active {
+        transform: translateY(0);
+    }
+
+    .calculateButton {
+        position: relative;
+        outline: none;
+        border: none;
+        background: none;
+        border-radius: 1000px;
+        width: calc(100% / 3 - 12px);
+        height: 80px;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 100%;
+        color:white;
+        z-index: 2;
+
+        &::before {
+            position: absolute;
+            content: '';
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            transition: background .2s;
+            border-radius: inherit;
+        }
+
+        &:active {
+            &::before {
+                background: rgba(255, 255, 255, 0.1);
+            }
+            
+        }
+    }
+}

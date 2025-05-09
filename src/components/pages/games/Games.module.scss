@@ -1,0 +1,248 @@
+.gameCard {
+    position: relative;
+    width: 100%;
+    min-height: 292px;
+    border-radius: 28px;
+    padding: 8px;
+    border: 0.8px solid #F5F5F51A;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-clip: padding-box;
+
+    &:nth-child(3) {
+        .gameCardPreview {
+            transform: scaleX(-1);
+            width: 361px;
+            height: 335px;
+            right:0;
+            top:-2px;
+            bottom:-49px;
+        }
+
+        position: relative;
+
+        &::before {
+            position: absolute;
+            background: rgba(73, 192, 234, 1);
+            width: 237px;
+            height: 266px;
+            bottom:-3px;
+            right:-1px;
+            content: '';
+            display: inline-block;
+            filter:blur(47px)
+        }
+    }
+
+    .gameCardPreview {
+        position: absolute;
+        width: 358px;
+        height: 333px;
+        right: -64px;
+        bottom: -63px;
+    }
+
+    .gameCardHeading {
+        gap: 10px;
+
+        .headingCard {
+            position: relative;
+            z-index: 20;
+            padding: 10.5px 24px 10.5px 16px;
+            border-radius: 20px;
+
+            &::before {
+                position: absolute;
+                content: '';
+                display: inline-block;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                z-index: -1;
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(13.300000190734863px);
+                border-radius: inherit;
+            }
+        }
+    }
+
+    .headingCard {
+        gap: 8px;
+
+        .recordPreview {
+            border-radius: 1000px;
+            height: 36px;
+            width: 36px;
+            position: relative;
+            z-index: 2;
+
+            &.withBorder {
+                &::after {
+                    position: absolute;
+                    left: 2px;
+                    right: 2px;
+                    top: 2px;
+                    bottom: 2px;
+                    filter: blur(3px);
+                    z-index: -1;
+                    border-radius: inherit;
+                    content: '';
+                    display: inline-block;
+                    background: var(--background-color);
+                    border: var(--gradient-border)
+                }
+
+                &::before {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    z-index: -2;
+                    border-radius: inherit;
+                    content: '';
+                    display: inline-block;
+                    background: rgba(92, 120, 233, 1);
+                }
+            }
+        }
+
+        .textContainerCard {
+            gap: 4px;
+
+            .cardTitle {
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 12px;
+                color: white;
+                opacity: 50%;
+            }
+
+            .cardDescription {
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 15.4px;
+                color: white;
+            }
+
+            .cardTicketsContainer {
+                gap: 4px;
+
+                .cardDescription {
+                    font-family: "Geist Mono", monospace;
+                    color: rgba(255, 255, 255, 0.5);
+
+                    .default {
+                        font-family: 'Gilroy', sans-serif;
+                        margin-left: 2px;
+                        margin-right: 2px;
+                    }
+
+                    &::first-letter {
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+
+    .gameCardFooter {
+        position: relative;
+        height: fit-content;
+        border-radius: 20px;
+        padding: 16px;
+        gap: 12px;
+        z-index: 20;
+
+        &::before {
+            position: absolute;
+            content: '';
+            display: inline-block;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+            background: rgba(34, 34, 34, 0.2);
+            backdrop-filter: blur(13.300000190734863px);
+            border-radius: inherit;
+        }
+
+        .aboutGameTextContainer {
+            gap: 6px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, .15);
+
+            .gameType {
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 12px;
+                color: white;
+                opacity: 50%;
+            }
+
+            .gameTitle {
+                font-weight: 600;
+                font-size: 18px;
+                line-height: 19.8px;
+                color: white;
+            }
+        }
+
+        .gameUiContainer {
+            gap: 10px;
+
+            .cardDescription {
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 15.4px;
+                color: white;
+            }
+
+            .startGameButton {
+                position: relative;
+                width: 112px;
+                text-decoration: none;
+                height: 44px;
+                border-radius: 16px;
+                gap: 6px;
+                padding-right: 20px;
+                padding-left: 20px;
+                outline: none;
+                border: none;
+
+                &::before {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    content: '';
+                    display: inline-block;
+                    z-index: -1;
+                    background: rgba(255, 255, 255, 1);
+                    backdrop-filter: blur(10.899999618530273px);
+                    border-radius: inherit;
+                }
+
+                .buttonText {
+                    font-weight: 600;
+                    font-size: 15px;
+                    line-height: 15px;
+                    color: transparent;
+                    background-size: 100% 100%;
+                    background-position: center;
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                }
+
+
+                svg path {
+                    fill:var(--svg-fill)
+                }
+            }
+        }
+    }
+}

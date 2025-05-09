@@ -1,0 +1,190 @@
+.gunsConnectionTextContainer {
+    gap: 8px;
+    margin-top: 32px;
+
+    .gunsConnectionTitle {
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 24.2px;
+        color: white;
+    }
+
+    .gunsConnectionDescription {
+        border-radius: 1000px;
+        padding: 4px 9px;
+        font-family: "Geist Mono", sans-serif;
+        font-weight: 500;
+        font-size: 12px;
+        color: white;
+        background: #21A9E3;
+    }
+}
+
+.gunsConnectionCardsContainer {
+    margin-top: 20px;
+    gap: 8px;
+
+    .gunsConnectionCard {
+        position: relative;
+        width: calc(100% / 4 - 10px);
+        height: 81px;
+        border-radius: 16px;
+        z-index: 2;
+        background: #232325;
+        border: 2px solid;
+        box-shadow: 4px 4px 7.1px 0px #3C3C3C40 inset,
+            -4px -4px 7px 0px #3C3C3C40 inset;
+        border-color: var(--gradient-border);
+
+        &::before {
+            content: '';
+            position: absolute;
+            display: inline-block;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: inherit;
+            background: var(--gradient-border);
+            z-index: -2;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            display: inline-block;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            background: #232325;
+            z-index: -1;
+
+        }
+
+        .gunsConnectionCardPreview {
+            width: 57px;
+            height: 57px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+.swiperWrapper {
+    margin-top: 24px;
+    gap: 17px;
+    height: 72px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #232325;
+    border: 2px solid #FFFFFF0D;
+    padding-left: 8px;
+    flex-wrap: nowrap;
+
+    .swiperCard {
+        position: relative;
+
+        width: 56px;
+        height: 56px;
+        flex-shrink: 0;
+        border-radius: 1000px;
+        z-index: 2;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            background: var(--background__swiper__card);
+            filter: blur(7px);
+            z-index: -1;
+            opacity: 40%;
+        }
+    }
+}
+
+.uiButtons {
+    margin-top: 32px;
+    gap: 8px;
+    opacity: 50%;
+
+    .sellItemButton {
+        width: 100%;
+        gap: 60px;
+        height: 48px;
+
+        border-radius: 10000px;
+        padding-right: 16px;
+        padding-left: 16px;
+        outline: none;
+        border: none;
+        background: linear-gradient(90deg, #8ED3F0 0%, #21A9E3 50%, #1476A0 100%);
+        box-shadow: 4px -4px 16.6px 0px #21A9E3 inset,
+            -4px 4px 19px 0px #FFFFFF40 inset,
+            0px 0px 15.1px 0px #21A9E380,
+            4px -4px 16.6px 0px #1DA4DD inset,
+            -4px 4px 19px 0px #FFFFFF40 inset,
+            0px 0px 15.1px 0px #21A9E380;
+
+        .buttonText {
+            font-weight: 600;
+            font-size: 16px;
+            color: white;
+        }
+
+        .sellItemPriceContainer {
+            gap: 4px;
+
+            .buttontext {
+                font-family: "Geist Mono", monospace;
+                font-weight: 500;
+                font-size: 16px;
+                color: white;
+            }
+        }
+    }
+
+    .exportItemButton {
+        position: relative;
+        width: 100%;
+        height: 48px;
+        border-radius: 10000px;
+        padding-right: 24px;
+        padding-left: 24px;
+        background: none;
+        outline: none;
+        border: none;
+
+        &::before {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+            display: inline-block;
+            background: #FFFFFF33;
+            backdrop-filter: blur(9.199999809265137px);
+            content: '';
+            border-radius: inherit;
+        }
+
+        .buttonText {
+            font-weight: 600;
+            font-size: 16px;
+            color: white;
+        }
+    }
+}

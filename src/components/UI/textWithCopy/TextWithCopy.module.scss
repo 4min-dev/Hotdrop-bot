@@ -1,0 +1,23 @@
+.textWithCopyContainer {
+    gap: 4px;
+
+    .textToCopy {
+        font-family: "Geist Mono", sans-serif;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 14.3px;
+        color: rgba(255,255,255,.5) !important;
+        transition: all .4s;
+    }
+
+    .copyButton {
+        outline: none;
+        border: none;
+        background: none;
+
+        svg path {
+            transition: all .4s;
+            fill:rgba(255,255,255,.5) !important
+        }
+    }
+}

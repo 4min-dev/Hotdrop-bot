@@ -1,6 +1,6 @@
 # Локальный запуск
 
-## git clone https://git.wizardstech.ru/TechWizards/Tg-Bot-Hotdrop
+## git clone https://github.com/4min-dev/Hotdrop-bot
 ## npm install
 ## npm run start
 

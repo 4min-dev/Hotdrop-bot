@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Exhcange.module.scss'
 import getImage from '../../../assets/getImage'
+import { useGetUserQuery } from '../../../redux/services/userService'
+import { useExchangeMutation, useGetCurrencyQuery } from '../../../redux/services/exchangeService'
+import { useNotification } from '../../../providers/notification/NotificationProvider'
 
 type TCalculateButton = {
     value: number | 'remove' | 'clear',
@@ -8,6 +11,12 @@ type TCalculateButton = {
 }
 
 const Exchange: React.FC = () => {
+    const { data: userData } = useGetUserQuery()
+    const { data: currencyData } = useGetCurrencyQuery()
+    const { addNotification } = useNotification()
+    const [exchangeGoldCoins, { data: exchangedCoinsData, isSuccess: isExchangedSuccess }] = useExchangeMutation()
+    const [coinsRate, setCoinsRate] = useState<{ goldCoins: number, freeCoins: number }>({ goldCoins: 0, freeCoins: 0 })
+    const [balance, setBalance] = useState<{ goldCoins: number, freeCoins: number }>({ goldCoins: 0, freeCoins: 0 })
     const [isCalculatePanel, setIsCalculatePanel] = useState<boolean>(false)
     const [goldCoinValue, setGoldCoinValue] = useState<number | string>('')
     const [gameTokensValue, setGameTokensValue] = useState<number | string>('')
@@ -67,7 +76,10 @@ const Exchange: React.FC = () => {
 
     const [isReversed, setIsReversed] = useState(false)
 
-    const conversionRate = isReversed ? 1 / 228 : 228
+    const conversionRate = isReversed
+        ? coinsRate.goldCoins / coinsRate.freeCoins
+        : coinsRate.freeCoins / coinsRate.goldCoins
+
 
     const handleGoldCoinChange = (number: number | 'remove' | 'clear') => {
         setGoldCoinValue((prevValue) => {
@@ -83,7 +95,10 @@ const Exchange: React.FC = () => {
 
             const numericValue = parseFloat(newValue)
             if (!isNaN(numericValue)) {
-                setGameTokensValue(numericValue * conversionRate)
+                setGameTokensValue(isReversed
+                    ? numericValue / conversionRate
+                    : numericValue * conversionRate
+                )
             } else {
                 setGameTokensValue('')
             }
@@ -106,7 +121,10 @@ const Exchange: React.FC = () => {
 
             const numericValue = parseFloat(newValue)
             if (!isNaN(numericValue)) {
-                setGoldCoinValue(numericValue / conversionRate)
+                setGoldCoinValue(isReversed
+                    ? numericValue * conversionRate
+                    : numericValue / conversionRate
+                )
             } else {
                 setGoldCoinValue('')
             }
@@ -115,19 +133,19 @@ const Exchange: React.FC = () => {
         })
     }
 
-    const handleChangeTokensButton = () => {
+    // const handleChangeTokensButton = () => {
 
-        setIsReversed(!isReversed)
+    //     setIsReversed(!isReversed)
 
-        if (!isReversed) {
-            setGoldCoinValue('')
-        } else {
-            setGameTokensValue('')
-        }
+    //     if (!isReversed) {
+    //         setGoldCoinValue('')
+    //     } else {
+    //         setGameTokensValue('')
+    //     }
 
-        setGameTokensValue('')
-        setGoldCoinValue('')
-    }
+    //     setGameTokensValue('')
+    //     setGoldCoinValue('')
+    // }
 
     const formatValue = (value: number | string): string => {
         return value.toString()
@@ -136,25 +154,78 @@ const Exchange: React.FC = () => {
     const getConversionText = () => {
         const arrowUp = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M8.64186 1.52422C8.60169 1.47038 8.55107 1.42518 8.49304 1.39134C8.43502 1.35749 8.37076 1.33569 8.30412 1.32723C8.23748 1.31876 8.16981 1.32382 8.10517 1.34208C8.04052 1.36035 7.98022 1.39146 7.92786 1.43355C6.65023 2.45926 5.80747 3.92997 5.56853 5.55088C5.13065 5.23335 4.74683 4.84728 4.43186 4.40755C4.38908 4.34775 4.33364 4.29812 4.26949 4.2622C4.20533 4.22628 4.13405 4.20495 4.06071 4.19973C3.98737 4.19451 3.91378 4.20553 3.84519 4.232C3.77659 4.25847 3.71468 4.29975 3.66386 4.35288C2.78341 5.27392 2.21903 6.45134 2.05247 7.71457C1.88591 8.97781 2.12582 10.2613 2.73746 11.379C3.34909 12.4968 4.30069 13.3909 5.4544 13.9317C6.60811 14.4725 7.90403 14.6319 9.15443 14.387C10.4048 14.142 11.5448 13.5054 12.4092 12.5692C13.2736 11.6331 13.8175 10.4461 13.9622 9.18017C14.1069 7.91424 13.8448 6.63512 13.2139 5.5281C12.583 4.42108 11.6161 3.54364 10.4532 3.02288C9.73832 2.67526 9.11719 2.16135 8.64186 1.52422ZM10.4999 9.50022C10.4996 9.86184 10.4209 10.2191 10.2692 10.5474C10.1175 10.8756 9.89636 11.167 9.62108 11.4016C9.34581 11.6361 9.02294 11.8081 8.67474 11.9057C8.32655 12.0033 7.96132 12.0242 7.60425 11.967C7.24719 11.9098 6.90679 11.7758 6.60654 11.5742C6.30629 11.3727 6.05333 11.1084 5.86513 10.7996C5.67692 10.4908 5.55795 10.1449 5.51641 9.78566C5.47487 9.42643 5.51176 9.06247 5.62453 8.71888C6.0432 9.02888 6.52453 9.25888 7.04653 9.38555C7.18805 8.47285 7.64157 7.63743 8.32986 7.02155C8.93053 7.10154 9.48171 7.39698 9.88086 7.85291C10.28 8.30885 10.5 8.89424 10.4999 9.50022Z" fill="white"/>
-        </svg>`;
+        </svg>`
         const arrowDown = `<svg xmlns="http://www.w3.org/2000/svg" width="11" height="15" viewBox="0 0 11 15" fill="none">
             <path d="M10.6206 6.05176L9.65509 7.98279H0.965433L-8.39233e-05 6.05176H10.6206Z" fill="white"/>
             <rect x="8.6897" y="11.3621" width="1.93103" height="6.75862" transform="rotate(90 8.6897 11.3621)" fill="white"/>
             <rect x="10.6206" y="0.741455" width="1.93103" height="10.6207" transform="rotate(90 10.6206 0.741455)" fill="white"/>
             <rect x="4.34473" y="2.1897" width="1.93103" height="11.1034" fill="white"/>
-        </svg>`;
+        </svg>`
 
         return isReversed
-            ? `<span class="flex align__center ${styles.exchangeValueCardGap}">228 ${arrowDown} = 1 ${arrowUp}</span>`
-            : `<span class="flex align__center ${styles.exchangeValueCardGap}">1 ${arrowUp} = 228 ${arrowDown}</span>`
+            ? `<span class="flex align__center ${styles.exchangeValueCardGap}">${coinsRate.freeCoins} ${arrowDown} = ${coinsRate.goldCoins} ${arrowUp}</span>`
+            : `<span class="flex align__center ${styles.exchangeValueCardGap}">${coinsRate.goldCoins} ${arrowUp} = ${coinsRate.freeCoins} ${arrowDown}</span>`
     }
 
     function handleCalculatePanel() {
         setIsCalculatePanel((prev) => !prev)
     }
 
+    useEffect(() => {
+        if (!userData) return
+
+        const goldCoins = userData.balance.donation_coins
+        const freeCoins = userData.balance.free_coins
+
+        setBalance({ goldCoins: goldCoins, freeCoins: freeCoins })
+    }, [userData])
+
+    useEffect(() => {
+        if (!currencyData) return
+        console.log(currencyData)
+        const freeToGoldRate = currencyData.donation_coin_to_free_coin
+        const goldToFreeRate = currencyData.free_coin_to_donation_coin * 1000
+
+        setCoinsRate({
+            freeCoins: freeToGoldRate,
+            goldCoins: goldToFreeRate
+        })
+
+    }, [currencyData])
+
+    async function exchangeCoinsHandler() {
+        if (!goldCoinValue) return
+
+        if (!Number.isInteger(gameTokensValue)) {
+            addNotification('Обмен доступен только на целочисленные значения')
+            return
+        }
+
+        if (Number(goldCoinValue) > balance.goldCoins) {
+            addNotification('Недостаточно валюты для обмена')
+            return
+        }
+
+
+        try {
+            const result = await exchangeGoldCoins(Number(goldCoinValue)).unwrap()
+            setIsCalculatePanel(false)
+            setIsSuccessExchanged(true)
+            console.log(result)
+
+        } catch (error) {
+            console.error('Ошибка обмена:', error)
+            addNotification('Ошибка при обмене валюты')
+        }
+
+    }
+
     return (
-        <div>
+        <div onClick={() => {
+            if (isCalculatePanel) {
+                setIsCalculatePanel(false)
+            }
+        }}>
             {isSuccessExchanged ? (
                 <div className={`flex align__center column ${styles.exchangedContainer}`}>
                     <div className={styles.exchangedPreview}>
@@ -306,7 +377,12 @@ const Exchange: React.FC = () => {
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M6.64186 0.524216C6.60169 0.470376 6.55107 0.425184 6.49304 0.391338C6.43502 0.357493 6.37076 0.335688 6.30412 0.327225C6.23748 0.318763 6.16981 0.323816 6.10517 0.342084C6.04052 0.360352 5.98022 0.391459 5.92786 0.433549C4.65023 1.45926 3.80747 2.92997 3.56853 4.55088C3.13065 4.23335 2.74683 3.84728 2.43186 3.40755C2.38908 3.34775 2.33364 3.29812 2.26949 3.2622C2.20533 3.22628 2.13405 3.20495 2.06071 3.19973C1.98737 3.19451 1.91378 3.20553 1.84519 3.232C1.77659 3.25847 1.71468 3.29975 1.66386 3.35288C0.783408 4.27392 0.219025 5.45134 0.0524669 6.71457C-0.114092 7.97781 0.125823 9.26128 0.737458 10.379C1.34909 11.4968 2.30069 12.3909 3.4544 12.9317C4.60811 13.4725 5.90403 13.6319 7.15443 13.387C8.40484 13.142 9.5448 12.5054 10.4092 11.5692C11.2736 10.6331 11.8175 9.4461 11.9622 8.18017C12.1069 6.91424 11.8448 5.63512 11.2139 4.5281C10.583 3.42108 9.61609 2.54364 8.45319 2.02288C7.73832 1.67526 7.11719 1.16135 6.64186 0.524216ZM8.49986 8.50022C8.49961 8.86184 8.42091 9.2191 8.2692 9.54735C8.11748 9.87561 7.89636 10.167 7.62108 10.4016C7.34581 10.6361 7.02294 10.8081 6.67474 10.9057C6.32655 11.0033 5.96132 11.0242 5.60425 10.967C5.24719 10.9098 4.90679 10.7758 4.60654 10.5742C4.30629 10.3727 4.05333 10.1084 3.86513 9.79961C3.67692 9.49083 3.55795 9.14489 3.51641 8.78566C3.47487 8.42643 3.51176 8.06247 3.62453 7.71888C4.0432 8.02888 4.52453 8.25888 5.04653 8.38555C5.18805 7.47285 5.64157 6.63743 6.32986 6.02155C6.93053 6.10154 7.48171 6.39698 7.88086 6.85291C8.28002 7.30885 8.49999 7.89424 8.49986 8.50022Z" fill="white" />
                                         </svg>
                                     }
-                                    <span className={styles.exchangeCardBalanceDescription}>36 000,00</span>
+                                    <span className={styles.exchangeCardBalanceDescription}>
+                                        {(isReversed ? balance.freeCoins : balance.goldCoins).toLocaleString('ru-RU', {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2
+                                        })}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -316,7 +392,7 @@ const Exchange: React.FC = () => {
                             type="number"
                             step="0.01"
                             className={styles.exchangeValueInput}
-                            placeholder={isReversed ? '228' : '001'}
+                            placeholder={isReversed ? String(coinsRate.freeCoins).padStart(3, '0') : String(coinsRate.goldCoins).padStart(3, '0')}
                             value={isReversed ? gameTokensValue : goldCoinValue}
                             onClick={handleCalculatePanel}
                         />
@@ -326,7 +402,6 @@ const Exchange: React.FC = () => {
                         <button
                             type="button"
                             className={`flex align__center justify__center ${styles.changeTokensButton}`}
-                            onClick={handleChangeTokensButton}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M3 7.5L7.5 3M7.5 3L12 7.5M7.5 3V16.5M21 16.5L16.5 21M16.5 21L12 16.5M16.5 21V7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -364,7 +439,12 @@ const Exchange: React.FC = () => {
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M6.64186 0.524216C6.60169 0.470376 6.55107 0.425184 6.49304 0.391338C6.43502 0.357493 6.37076 0.335688 6.30412 0.327225C6.23748 0.318763 6.16981 0.323816 6.10517 0.342084C6.04052 0.360352 5.98022 0.391459 5.92786 0.433549C4.65023 1.45926 3.80747 2.92997 3.56853 4.55088C3.13065 4.23335 2.74683 3.84728 2.43186 3.40755C2.38908 3.34775 2.33364 3.29812 2.26949 3.2622C2.20533 3.22628 2.13405 3.20495 2.06071 3.19973C1.98737 3.19451 1.91378 3.20553 1.84519 3.232C1.77659 3.25847 1.71468 3.29975 1.66386 3.35288C0.783408 4.27392 0.219025 5.45134 0.0524669 6.71457C-0.114092 7.97781 0.125823 9.26128 0.737458 10.379C1.34909 11.4968 2.30069 12.3909 3.4544 12.9317C4.60811 13.4725 5.90403 13.6319 7.15443 13.387C8.40484 13.142 9.5448 12.5054 10.4092 11.5692C11.2736 10.6331 11.8175 9.4461 11.9622 8.18017C12.1069 6.91424 11.8448 5.63512 11.2139 4.5281C10.583 3.42108 9.61609 2.54364 8.45319 2.02288C7.73832 1.67526 7.11719 1.16135 6.64186 0.524216ZM8.49986 8.50022C8.49961 8.86184 8.42091 9.2191 8.2692 9.54735C8.11748 9.87561 7.89636 10.167 7.62108 10.4016C7.34581 10.6361 7.02294 10.8081 6.67474 10.9057C6.32655 11.0033 5.96132 11.0242 5.60425 10.967C5.24719 10.9098 4.90679 10.7758 4.60654 10.5742C4.30629 10.3727 4.05333 10.1084 3.86513 9.79961C3.67692 9.49083 3.55795 9.14489 3.51641 8.78566C3.47487 8.42643 3.51176 8.06247 3.62453 7.71888C4.0432 8.02888 4.52453 8.25888 5.04653 8.38555C5.18805 7.47285 5.64157 6.63743 6.32986 6.02155C6.93053 6.10154 7.48171 6.39698 7.88086 6.85291C8.28002 7.30885 8.49999 7.89424 8.49986 8.50022Z" fill="white" />
                                         </svg>
                                     }
-                                    <span className={styles.exchangeCardBalanceDescription}>36 000,00</span>
+                                    <span className={styles.exchangeCardBalanceDescription}>
+                                        {(isReversed ? balance.goldCoins : balance.freeCoins).toLocaleString('ru-RU', {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2
+                                        })}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -374,16 +454,11 @@ const Exchange: React.FC = () => {
                             type="number"
                             step="0.01"
                             className={styles.exchangeValueInput}
-                            placeholder={isReversed ? '1' : '228'}
+                            placeholder={isReversed ? String(coinsRate.goldCoins).padStart(3, '0') : String(coinsRate.freeCoins).padStart(3, '0')}
                             value={isReversed ? goldCoinValue : gameTokensValue}
                         />
 
-                        <button type="button" className={`flex align__center ${styles.exchangeTokensButton}`} onClick={() => {
-                            if (goldCoinValue || gameTokensValue) {
-                                setIsCalculatePanel(false)
-                                setIsSuccessExchanged(true)
-                            }
-                        }}>
+                        <button type="button" className={`flex align__center ${styles.exchangeTokensButton}`} onClick={exchangeCoinsHandler}>
                             <span className={styles.buttonText}>Обменять</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M10 17L15 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -394,7 +469,7 @@ const Exchange: React.FC = () => {
                 </>
             )}
 
-            <div className={`flex flex__wrap justify__center align__center ${styles.calculatePanel} ${isCalculatePanel ? styles.active : ''}`}>
+            <div className={`flex flex__wrap justify__center align__center ${styles.calculatePanel} ${isCalculatePanel ? styles.active : ''}`} onClick={(e) => e.stopPropagation()}>
                 {
                     calculateButtons.length > 0 && calculateButtons.map((calculateButton) => (
                         <button type='button' className={`flex align__center justify__center ${styles.calculateButton}`} key={calculateButton.value} onClick={() => {

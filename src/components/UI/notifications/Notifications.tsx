@@ -2,14 +2,14 @@ import React from 'react'
 import styles from './Notifications.module.scss'
 import { useNotification } from '../../../providers/notification/NotificationProvider'
 
-const Notifications:React.FC = () => {
+const Notifications: React.FC = () => {
     const { notifications, removeNotification } = useNotification()
 
     return (
         <div className={`flex column ${styles.notificationsContainer}`}>
-            {notifications.map((notification) => (
+            {notifications.map((notification, index) => (
                 <div
-                    key={notification.id}
+                    key={`${notification.id}-${index}`}
                     className={`flex align__center justify__space__between ${styles.notificationCard} ${notification.isExiting ? 'exit' : ''
                         }`}
                     onAnimationEnd={() => {

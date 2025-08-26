@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Events.module.scss'
 import Filter from '../../UI/filter/Filter'
 import IFilter from '../../../interfaces/IFilter'
@@ -7,208 +7,22 @@ import getImage from '../../../assets/getImage'
 import ImagePreview from '../../UI/imagePreview/ImagePreview'
 import Done from '../../svg/Done'
 import SelectedEvent from '../../UI/popups/selectedEvent/SelectedEvent'
-import IEventsData from '../../../interfaces/IEventData'
 import { useNotification } from '../../../providers/notification/NotificationProvider'
-
-type TDailyReward = {
-    id: number,
-    day: number,
-    isClaimed: boolean,
-    reward: number
-}
+import { useGetTasksQuery, useGetUserQuery } from '../../../redux/services/userService'
+import ITask from '../../../interfaces/ITask'
+import IDailyReward from '../../../interfaces/IDailyReward'
+import { useGetDailyRewardsQuery } from '../../../redux/services/listService'
+import { useClaimDailyRewardMutation } from '../../../redux/services/eventService'
 
 const EventsPage: React.FC = () => {
-    const { addNotification, removeNotification  } = useNotification()
+    const { addNotification } = useNotification()
+    const { data: eventsResponse } = useGetTasksQuery()
+    const { data: userData, refetch: refetchUser } = useGetUserQuery()
+    const { data: dailyRewardsList } = useGetDailyRewardsQuery()
+    const [claimReward, { data: claimedRewardData }] = useClaimDailyRewardMutation()
     const [isSelectedEventActive, setSelectedEventActive] = useState<boolean>(false)
-    const [selectedEvent, setSelectedEvent] = useState<IEventsData | null>(null)
-    const [events, setEvents] = useState<IEventsData[]>([
-        {
-            id: 1,
-            img: "case.png",
-            tokenPreview: "fire.png",
-            title: 'Открыть Free Case 5 раз',
-            award: 10000,
-            isCompleted: true,
-            currentProgress: 2,
-            totalProgress: 6,
-            backgroundEffect: 'rgba(15, 97, 212, 1)',
-            etaps:[
-                {
-                    id:1,
-                    title:'Перейти по ссылке выше'
-                },
-                {
-                    id:2,
-                    title:'Зарегистрироваться на платформе'
-                },
-                {
-                    id:3,
-                    title:'Купить депозит удобным для вас способом'
-                }
-            ],
-            hint:'Тут будет примечание, его можно убрать или добавить через админку, в разделе добавления и редактирования заданий.',
-            linkToEvent:'https://rt.pornhub.com/view_video.php?viewkey=6558ba16a1575#1',
-            reward:1230
-        },
-        {
-            id: 2,
-            img: "case-2.png",
-            tokenPreview: "fire.png",
-            title: 'Открыть Elite Case 1 раз',
-            award: 10000,
-            isCompleted: true,
-            backgroundEffect: 'rgba(238, 230, 17, 1)',
-            etaps:[
-                {
-                    id:1,
-                    title:'Перейти по ссылке выше'
-                },
-                {
-                    id:2,
-                    title:'Зарегистрироваться на платформе'
-                },
-                {
-                    id:3,
-                    title:'Купить депозит удобным для вас способом'
-                }
-            ],
-            hint:'Тут будет примечание, его можно убрать или добавить через админку, в разделе добавления и редактирования заданий.',
-            linkToEvent:'https://rt.pornhub.com/view_video.php?viewkey=6558ba16a1575#1',
-            reward:1230
-        },
-        {
-            id: 3,
-            img: "telegram.png",
-            tokenPreview: "fire.png",
-            title: 'Подписаться на TG канал',
-            award: 1500,
-            isCompleted: false,
-            backgroundEffect: 'rgba(15, 97, 212, 1)',
-            etaps:[
-                {
-                    id:1,
-                    title:'Перейти по ссылке выше'
-                },
-                {
-                    id:2,
-                    title:'Зарегистрироваться на платформе'
-                },
-                {
-                    id:3,
-                    title:'Купить депозит удобным для вас способом'
-                }
-            ],
-            hint:'Тут будет примечание, его можно убрать или добавить через админку, в разделе добавления и редактирования заданий.',
-            linkToEvent:'https://rt.pornhub.com/view_video.php?viewkey=6558ba16a1575#1',
-            reward:1230
-        },
-        {
-            id: 4,
-            img: "wallet.png",
-            tokenPreview: "fire.png",
-            title: 'Пополнить баланс на 500р',
-            award: 100500,
-            isCompleted: false,
-            backgroundEffect: 'rgba(227, 195, 95, 1)',
-            etaps:[
-                {
-                    id:1,
-                    title:'Перейти по ссылке выше'
-                },
-                {
-                    id:2,
-                    title:'Зарегистрироваться на платформе'
-                },
-                {
-                    id:3,
-                    title:'Купить депозит удобным для вас способом'
-                }
-            ],
-            hint:'Тут будет примечание, его можно убрать или добавить через админку, в разделе добавления и редактирования заданий.',
-            linkToEvent:'https://rt.pornhub.com/view_video.php?viewkey=6558ba16a1575#1',
-            reward:1230
-        },
-        {
-            id: 5,
-            img: "people.png",
-            tokenPreview: "fire.png",
-            title: 'Пригласить двух друзей',
-            award: 4000,
-            isCompleted: false,
-            backgroundEffect: 'rgba(62, 61, 159, 1)',
-            etaps:[
-                {
-                    id:1,
-                    title:'Перейти по ссылке выше'
-                },
-                {
-                    id:2,
-                    title:'Зарегистрироваться на платформе'
-                },
-                {
-                    id:3,
-                    title:'Купить депозит удобным для вас способом'
-                }
-            ],
-            hint:'Тут будет примечание, его можно убрать или добавить через админку, в разделе добавления и редактирования заданий.',
-            linkToEvent:'https://rt.pornhub.com/view_video.php?viewkey=6558ba16a1575#1',
-            reward:1230
-        },
-
-        {
-            id: 6,
-            img: "improve.png",
-            tokenPreview: "fire.png",
-            title: 'Достигнуть 3 уровня',
-            award: 7000,
-            isCompleted: false,
-            backgroundEffect: 'rgba(62, 61, 159, 1)',
-            etaps:[
-                {
-                    id:1,
-                    title:'Перейти по ссылке выше'
-                },
-                {
-                    id:2,
-                    title:'Зарегистрироваться на платформе'
-                },
-                {
-                    id:3,
-                    title:'Купить депозит удобным для вас способом'
-                }
-            ],
-            hint:'Тут будет примечание, его можно убрать или добавить через админку, в разделе добавления и редактирования заданий.',
-            linkToEvent:'https://rt.pornhub.com/view_video.php?viewkey=6558ba16a1575#1',
-            reward:1230
-        },
-
-        {
-            id: 7,
-            img: "hand.png",
-            tokenPreview: "fire.png",
-            title: 'Накопить 100 монет в ловле монет',
-            award: 15000,
-            isCompleted: false,
-            backgroundEffect: 'rgba(62, 61, 159, 1)',
-            etaps:[
-                {
-                    id:1,
-                    title:'Перейти по ссылке выше'
-                },
-                {
-                    id:2,
-                    title:'Зарегистрироваться на платформе'
-                },
-                {
-                    id:3,
-                    title:'Купить депозит удобным для вас способом'
-                }
-            ],
-            hint:'Тут будет примечание, его можно убрать или добавить через админку, в разделе добавления и редактирования заданий.',
-            linkToEvent:'https://rt.pornhub.com/view_video.php?viewkey=6558ba16a1575#1',
-            reward:1230
-        },
-    ])
+    const [selectedEvent, setSelectedEvent] = useState<ITask | null>(null)
+    const [events, setEvents] = useState<ITask[]>([])
     const [eventFilters, setEventFilters] = useState<IFilter[]>([
         {
             id: 1,
@@ -224,86 +38,7 @@ const EventsPage: React.FC = () => {
         }
     ])
 
-    const daysCombo = 2
-
-    const [dailyRewards, setDailyAwards] = useState<TDailyReward[]>([
-        {
-            id: 1,
-            day: 1,
-            isClaimed: true,
-            reward: 10000
-        },
-
-        {
-            id: 2,
-            day: 2,
-            isClaimed: false,
-            reward: 10000
-        },
-
-        {
-            id: 3,
-            day: 3,
-            isClaimed: false,
-            reward: 10000
-        },
-
-        {
-            id: 4,
-            day: 4,
-            isClaimed: false,
-            reward: 10000
-        },
-
-        {
-            id: 5,
-            day: 5,
-            isClaimed: false,
-            reward: 10000
-        },
-
-        {
-            id: 6,
-            day: 6,
-            isClaimed: false,
-            reward: 10000
-        },
-
-        {
-            id: 7,
-            day: 7,
-            isClaimed: false,
-            reward: 10000
-        },
-
-        {
-            id: 8,
-            day: 8,
-            isClaimed: false,
-            reward: 10000
-        },
-
-        {
-            id: 9,
-            day: 9,
-            isClaimed: false,
-            reward: 10000
-        },
-
-        {
-            id: 10,
-            day: 10,
-            isClaimed: false,
-            reward: 10000
-        },
-
-        {
-            id: 11,
-            day: 11,
-            isClaimed: false,
-            reward: 10000
-        },
-    ])
+    const [dailyRewards, setDailyAwards] = useState<IDailyReward[]>([])
 
     function getFormattedAward(award: number): React.ReactNode[] {
         const formatted = award.toLocaleString('en-US')
@@ -350,20 +85,20 @@ const EventsPage: React.FC = () => {
         return String(indicatorWidth) + '%'
     }
 
-    const handleClaimReward = (id: number) => {
-        addNotification('Награда успешно получена!')
+    const handleClaimReward = async () => {
+        try {
+            const response = await claimReward()
 
-        setDailyAwards((prevRewards) =>
-            prevRewards.map((reward) =>
-                reward.id === id && reward.day === daysCombo && !reward.isClaimed
-                    ? { ...reward, isClaimed: true }
-                    : reward
-            )
-        )
+            if (response.data?.success) {
+                await refetchUser()
+                addNotification('Награда успешно получена!')
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    function handleGetReward(rewardId: number) {
-        setEvents(events.filter((event) => event.id !== rewardId))
+    function handleGetReward() {
         addNotification('Награда успешно получена!')
     }
 
@@ -375,36 +110,79 @@ const EventsPage: React.FC = () => {
         }, 400)
     }
 
-    function handleSelectEvent(event: IEventsData) {
-        if (event.isCompleted) return
+    function handleSelectEvent(event: ITask) {
+        if (event.completed) return
         setSelectedEventActive(true)
         setSelectedEvent(event)
     }
+
+    useEffect(() => {
+        if (eventsResponse && eventsResponse.data) {
+
+            eventsResponse.data.forEach((event) => setEvents((prev) => {
+                if (event.data.channel_username) {
+                    return [...prev, { ...event, linkToEvent: `https://t.me/${event.data.channel_username}` },]
+                }
+
+                return [...prev, event]
+            }))
+        }
+    }, [eventsResponse])
+
+    useEffect(() => {
+        if (dailyRewardsList && dailyRewardsList.data) {
+            setDailyAwards(dailyRewardsList.data)
+        }
+
+        console.log(userData)
+    }, [dailyRewardsList, userData])
+
+    useEffect(() => {
+        const url = document.location.href
+
+        if (url.includes('filter=daily')) {
+            setEventFilters([
+                {
+                    id: 1,
+                    isActive: false,
+                    title: 'Задания',
+                    value: 'events'
+                },
+                {
+                    id: 2,
+                    isActive: true,
+                    title: 'Ежедневные',
+                    value: 'daily'
+                }
+            ])
+        }
+
+    }, [])
 
     return (
         <div>
             <Filter filters={eventFilters} setFilters={setEventFilters} />
             <FilterBlock title='Все задания' id='events'>
                 {events && events.length > 0 ? events.map((event) => (
-                    <div className={`flex justify__space__between ${styles.eventCard}`} key={event.id} onClick={() => handleSelectEvent(event)}>
+                    <div className={`flex justify__space__between ${styles.eventCard}`} key={event.created_at} onClick={() => handleSelectEvent(event)}>
                         <div className={`flex ${styles.eventCardContent}`}>
-                            <ImagePreview image={getImage(event.img)} backgroundEffectColor={event.backgroundEffect} />
+                            <ImagePreview image={event.img_url} backgroundEffectColor={event.backgroundEffect} />
 
                             <div className={`flex column ${styles.eventCardAbout}`}>
                                 <div className={`flex column ${styles.eventCardTextContainer}`}>
                                     <span className={styles.eventCardTitle}>{event.title}</span>
                                     <div className={`flex align__center ${styles.eventCardAward}`}>
                                         <div className={styles.tokenPreview}>
-                                            <img src={getImage(event.tokenPreview)} alt='Токен' />
+                                            <img src={getImage("fire.png")} alt='Токен' />
                                         </div>
 
-                                        <span className={styles.eventCardAwardValue}>{getFormattedAward(event.award)}</span>
+                                        <span className={styles.eventCardAwardValue}>{getFormattedAward(event.free_coins_reward)}</span>
                                     </div>
                                 </div>
 
                                 {(event.currentProgress && event.totalProgress) &&
                                     <div className={`flex align__end justify__center ${styles.progressBarWrapper}`}>
-                                        <div className={styles.progressBarIndicator} style={{ width: getIndicatorWidth(event.currentProgress, event.totalProgress) }}></div>
+                                        <div className={styles.progressBarIndicator} style={{ width: getIndicatorWidth(Number(event.currentProgress), Number(event.totalProgress)) }}></div>
                                         <span className={styles.progressBarValue}>
                                             {`${event.currentProgress}/${event.totalProgress}`}
                                         </span>
@@ -413,8 +191,8 @@ const EventsPage: React.FC = () => {
                         </div>
 
                         {
-                            event.isCompleted
-                                ? <button type='button' className={styles.getAwardButton} onClick={() => handleGetReward(event.id)}>
+                            event.completed
+                                ? <button type='button' className={styles.getAwardButton} onClick={() => handleGetReward()}>
                                     Получить
                                 </button>
                                 : <button type='button' className={styles.getEventButton}>
@@ -437,19 +215,26 @@ const EventsPage: React.FC = () => {
 
             <FilterBlock title='Ежедневная награда' id='daily'>
                 {
-                    (dailyRewards && dailyRewards.length > 0) ? dailyRewards.map((dailyReward) => (
-                        <div className={`flex column align__center justify__space__between ${styles.dailyRewardCard} ${dailyReward.day <= daysCombo && !dailyReward.isClaimed ? styles.achieved : ''}`} onClick={() => handleClaimReward(dailyReward.id)}>
+                    (dailyRewards && dailyRewards.length > 0) ? dailyRewards.map((dailyReward, i) => (
+                        <div key={`${dailyReward.day}=dailyReward.day?id=${i + 1}`} className={`flex column align__center justify__space__between ${styles.dailyRewardCard} ${userData && !userData.daily_reward.claimed && dailyReward.day === userData.daily_reward.day ? styles.achieved : ''}`} onClick={() => {
+                            if (userData && !userData.daily_reward.claimed && dailyReward.day === userData.daily_reward.day) {
+                                handleClaimReward()
+                            } else {
+                                console.log(userData)
+                                console.log(dailyReward)
+                            }
+                        }}>
                             <div className={`flex align__center justify__center ${styles.dailyRewardCardDayValue}`}>{`Day ${dailyReward.day}`}</div>
                             <div className={styles.dailyRewardAwardPreview}>
                                 <img src={getImage('fire.png')} alt='Токен' />
                             </div>
                             <div className={styles.dailyRewardContainer}>
                                 {
-                                    dailyReward.isClaimed ? <Done /> : <span className={styles.dailyRewardValue}>{getFormattedDailyReward(dailyReward.reward)}</span>
+                                    (userData && ((dailyReward.day < userData.daily_reward.day) || (dailyReward.day === userData.daily_reward.day && userData.daily_reward.claimed))) ? <Done /> : <span className={styles.dailyRewardValue}>{getFormattedDailyReward(dailyReward.reward)}</span>
                                 }
                             </div>
                         </div>
-                    )) : <h3>Загрука..</h3>
+                    )) : <h3>Загрузка..</h3>
                 }
             </FilterBlock>
 

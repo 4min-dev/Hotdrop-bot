@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import styles from './GetMoneyGame.module.scss'
 import getImage from '../../../assets/getImage'
+import { useCatchingEndMutation, useCoinCaughtMutation } from '../../../redux/services/gameEventService'
 
 const TapGame: React.FC = () => {
+    const [fetchToCaughtClick] = useCoinCaughtMutation()
+    const [fetchToCatchingEnd] = useCatchingEndMutation()
     const [timer, setTimer] = useState<{ minutes: number, seconds: number }>({ minutes: 0, seconds: 27 })
-    const [gameBalance, setGameBalance] = useState<number>(110)
+    const [gameBalance, setGameBalance] = useState<number>(0)
     const [isGameActive, setIsGameActive] = useState<boolean>(true)
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
 
@@ -22,7 +25,7 @@ const TapGame: React.FC = () => {
             width: number,
             height: number,
             timeoutId: NodeJS.Timeout | null,
-            rotate:number
+            rotate: number
         }>
     >([])
 
@@ -65,9 +68,15 @@ const TapGame: React.FC = () => {
         )
     }
 
-    const handleTokenClick = (id: number) => {
-        setGameBalance((prevBalance) => prevBalance + 10)
-        removeToken(id)
+    const handleTokenClick = async (id: number) => {
+        try {
+            setGameBalance((prevBalance) => prevBalance + 10)
+            removeToken(id)
+            const clickResult = await fetchToCaughtClick()
+            console.log(clickResult)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     useEffect(() => {
@@ -89,9 +98,19 @@ const TapGame: React.FC = () => {
 
         if (timer.seconds === 0) {
             clearInterval(interval)
-
             setIsGameActive(false)
             setIsGameOver(true)
+
+            async function handleCatchingGameEnd() {
+                try {
+                    const catchingEndResult = await fetchToCatchingEnd()
+                    console.log(catchingEndResult)
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+
+            handleCatchingGameEnd()
         }
 
         return () => {
@@ -171,12 +190,12 @@ const TapGame: React.FC = () => {
             )}
             {isGameActive && (
                 <div className={styles.gameOverlay}>
-                    {tokens.map((token) => (
+                    {tokens.map((token, index) => (
                         <div
-                            key={token.id}
+                            key={`${token.id}-${index}`}
                             className={styles.gameOverlayTapToken}
                             style={{
-                                rotate:`${token.rotate}deg`,
+                                rotate: `${token.rotate}deg`,
                                 top: token.top,
                                 left: token.left,
                                 width: `${token.width}px`,

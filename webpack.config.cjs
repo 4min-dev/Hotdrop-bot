@@ -1,5 +1,5 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -7,6 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    publicPath: '/',
     assetModuleFilename: 'static/[name][hash][ext]',
   },
   resolve: {
@@ -81,8 +82,14 @@ module.exports = {
     }),
   ],
   devServer: {
-    static: './dist',
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+    },
     open: true,
-    historyApiFallback: true
+    historyApiFallback: {
+      index: '/index.html',
+    },
+    port: 8080,
   },
-}
+  devtool: 'source-map',
+};

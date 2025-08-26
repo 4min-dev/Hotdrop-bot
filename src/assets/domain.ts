@@ -1,0 +1,1 @@
+export let domain = 'https://hotdrop-api-dev.wizardstech.ru/'

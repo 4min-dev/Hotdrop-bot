@@ -5,6 +5,13 @@
   gap: 30px;
   z-index: 1200;
 
+  &.absolute {
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    right: 20px;
+  }
+
   &.profileActive {
     z-index: 500;
   }
@@ -24,7 +31,11 @@
       gap: 5px;
 
       #userWallet {
-        color: rgba(110, 110, 110, 1)
+        color: rgba(110, 110, 110, 1);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 86px;
       }
 
       .username {

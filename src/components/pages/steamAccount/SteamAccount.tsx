@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './SteamAccount.module.scss'
 import NamedInput from '../../UI/namedInput/NamedInput'
 import SaveButton from '../../UI/buttons/saveButton/SaveButton'
+import { useGetUserQuery, useUpdateUserSteamMutation } from '../../../redux/services/userService'
 
 const SteamAccount: React.FC = () => {
+    const { data: userData } = useGetUserQuery()
+    const [patchUserSteam, { data: patchedUserSteam }] = useUpdateUserSteamMutation()
 
     const [isDisabledButton, setIsDisabledButton] = useState<boolean>(true)
     const [isConnected, setIsConnected] = useState<boolean>(false)
@@ -11,8 +14,12 @@ const SteamAccount: React.FC = () => {
     const [steamTradeLinkChangeValue, setSteamTradeLinkChangeValue] = useState<string>('')
 
     function saveTradeLinkHandler() {
+        if (steamTradeLinkChangeValue) {
+            patchUserSteam(steamTradeLinkChangeValue)
+        }
         setSteamTradeLinkValue(steamTradeLinkChangeValue)
         setIsDisabledButton(true)
+        console.log(patchedUserSteam)
     }
 
     function handleTradeLinkInput(event: React.ChangeEvent<HTMLInputElement>) {
@@ -26,6 +33,15 @@ const SteamAccount: React.FC = () => {
 
         setSteamTradeLinkChangeValue(event.target.value)
     }
+
+    useEffect(() => {
+        if (!userData) return
+        console.log(userData)
+
+        if (userData.steam) {
+            setSteamTradeLinkValue(userData.steam)
+        }
+    }, [userData])
 
     return (
         <div className={styles.steamAccountPage}>
@@ -61,7 +77,7 @@ const SteamAccount: React.FC = () => {
 
                     {
                         isConnected ? <span className={`flex align__center justify__center ${styles.steamConnectLinkStatus} ${styles.connectedStatus}`}>Connected</span>
-                            : <a href='#' className={`flex align__center justify__center ${styles.steamConnectLinkStatus} ${styles.notConnectedStatus}`}>Подключить</a>
+                            : <button disabled type='button' className={`flex align__center justify__center ${styles.steamConnectLinkStatus} ${styles.notConnectedStatus}`}>Подключить</button>
                     }
                 </div>
 

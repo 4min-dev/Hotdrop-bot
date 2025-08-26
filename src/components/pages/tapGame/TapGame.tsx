@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import styles from './TapGame.module.scss'
 import getImage from '../../../assets/getImage'
+import { useCoinClickerEndMutation, useCoinClickMutation } from '../../../redux/services/gameEventService'
 
 const TapGame: React.FC = () => {
+    const [fetchToClickerEnd] = useCoinClickerEndMutation()
+    const [fetchToCoinClick] = useCoinClickMutation()
     const [timer, setTimer] = useState<{ minutes: number, seconds: number }>({ minutes: 0, seconds: 27 })
-    const [gameBalance, setGameBalance] = useState<number>(110)
+    const [gameBalance, setGameBalance] = useState<number>(0)
     const [isGameActive, setIsGameActive] = useState<boolean>(true)
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
 
     useEffect(() => {
         document.body.classList.add('inGame')
-        
+
         return () => document.body.classList.remove('inGame')
-    },[])
+    }, [])
 
     const [tokens, setTokens] = useState<
         Array<{
@@ -53,14 +56,20 @@ const TapGame: React.FC = () => {
         )
     }
 
-    const handleTokenClick = (id: number) => {
-        setGameBalance((prevBalance) => prevBalance + 10)
-        removeToken(id)
+    const handleTokenClick = async (id: number) => {
+        try {
+            setGameBalance((prevBalance) => prevBalance + 10)
+            removeToken(id)
+            const result = await fetchToCoinClick()
+            console.log(result)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     useEffect(() => {
         let interval: NodeJS.Timeout | undefined
-        let tokenInterval:NodeJS.Timeout | undefined
+        let tokenInterval: NodeJS.Timeout | undefined
 
         if (isGameActive && timer.seconds > 0) {
             interval = setInterval(() => {
@@ -77,14 +86,25 @@ const TapGame: React.FC = () => {
 
         if (timer.seconds === 0) {
             clearInterval(interval)
-            
+
             setIsGameActive(false)
             setIsGameOver(true)
+
+            async function handleEndCoinGame() {
+                try {
+                    const endGameResult = await fetchToClickerEnd()
+                    console.log(endGameResult)
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+
+            handleEndCoinGame()
         }
 
         return () => {
             clearInterval(interval)
-          
+
         }
     }, [timer.seconds, isGameActive])
 
@@ -159,9 +179,9 @@ const TapGame: React.FC = () => {
             )}
             {isGameActive && (
                 <div className={styles.gameOverlay}>
-                    {tokens.map((token) => (
+                    {tokens.map((token, index) => (
                         <div
-                            key={token.id}
+                            key={`${token.id}-${index}`}
                             className={styles.gameOverlayTapToken}
                             style={{
                                 top: token.top,

@@ -1,10 +1,94 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Settings.module.scss'
 import Switch from '../../UI/buttons/switch/Switch'
+import { useDeleteUserMutation } from '../../../redux/services/userService'
+
+type TSettings = {
+    isAnimation: 'true' | 'false' | null,
+    isVibration: 'true' | 'false' | null
+}
 
 const Settings: React.FC = () => {
+
+    const [fetchToDeleteAccount] = useDeleteUserMutation()
+    const [settings, setSettings] = useState<TSettings>({ isAnimation: null, isVibration: null })
+    const [isDeletePopup, setActiveDeletePopup] = useState<boolean>(false)
+
+    useEffect(() => {
+        const isAnimation = localStorage.getItem('isAnimation')
+        const isVibration = localStorage.getItem('isVibration')
+        console.log(isAnimation)
+        console.log(isVibration)
+        if ((isAnimation === 'true' || isAnimation === 'false') && (isVibration === 'true' || isVibration === 'false')) {
+            setSettings({
+                isAnimation,
+                isVibration
+            })
+        }
+    }, [])
+
+    useEffect(() => {
+        if (!settings.isAnimation || !settings.isVibration) return
+        console.log(localStorage)
+        localStorage.setItem('isAnimation', settings.isAnimation)
+        localStorage.setItem('isVibration', settings.isVibration)
+    }, [settings])
+
+    async function handleDeleteAccount() {
+        try {
+            const result = await fetchToDeleteAccount()
+            if (result.data?.success) {
+                window.location.href = '/'
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    function handleActiveDeletePopup() {
+        setActiveDeletePopup(!isDeletePopup)
+    }
+
     return (
         <div>
+
+            <div className={`${styles.deleteAccountPopupOverlay} ${isDeletePopup ? styles.active : ''}`} onClick={handleActiveDeletePopup}>
+                <div className={`flex column ${styles.deleteAccountPopup}`} onClick={(e) => e.stopPropagation()}>
+                    <button type='button' className={`flex align__center justify__center ${styles.closeDeleteAccountPopup}`} onClick={handleActiveDeletePopup}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+                            <g clip-path="url(#clip0_2246_763)">
+                                <path d="M8.375 8.375L19.625 19.625M8.375 19.625L19.625 8.375" stroke="white" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_2246_763">
+                                    <rect width="27" height="27" fill="white" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </button>
+
+                    <div className={`flex column ${styles.deleteAccountPopupTextContainer}`}>
+                        <span className={styles.popupTitle}>
+                            Подтвердите удаление
+                        </span>
+
+                        <span className={styles.popupDescription}>
+                            Вы уверены в удалении своего игрового аккаунта? Восстановление будет невозможно.
+                        </span>
+                    </div>
+
+                    <div className={`flex column ${styles.deleteAccountPopupUiButtons}`}>
+                        <button type='button' className={styles.deleteAccountPopupButton} onClick={handleDeleteAccount}>
+                            Удалить
+                        </button>
+
+                        <button type='button' className={styles.deleteAccountPopupButton} onClick={handleActiveDeletePopup}>
+                            Отмена
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <span className={styles.settingsPageTitle}>Настройки</span>
             <div className={`flex column ${styles.settingCardsContainer}`}>
                 <div className={`flex align__center justify__space__between ${styles.settingCard}`}>
@@ -51,7 +135,12 @@ const Settings: React.FC = () => {
                         </div>
                     </div>
 
-                    <Switch />
+                    <Switch isActive={settings.isVibration ? settings.isVibration : 'false'} handleChange={(e) => setSettings((prev) => {
+                        return {
+                            ...prev,
+                            isVibration: e.target.checked ? 'true' : 'false'
+                        }
+                    })} />
                 </div>
 
                 <div className={`flex align__center justify__space__between ${styles.settingCard}`}>
@@ -72,10 +161,15 @@ const Settings: React.FC = () => {
                         </div>
                     </div>
 
-                    <Switch />
+                    <Switch isActive={settings.isAnimation ? settings.isAnimation : 'false'} handleChange={(e) => setSettings((prev) => {
+                        return {
+                            ...prev,
+                            isAnimation: e.target.checked ? 'true' : 'false'
+                        }
+                    })} />
                 </div>
 
-                <div className={`flex align__center justify__space__between ${styles.settingCard}`}>
+                <div className={`flex align__center justify__space__between ${styles.settingCard}`} onClick={handleActiveDeletePopup}>
                     <div className={`flex align__center ${styles.aboutSettingContainer}`}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <g clip-path="url(#clip0_176_3250)">

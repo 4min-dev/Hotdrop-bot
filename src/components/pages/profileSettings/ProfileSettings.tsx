@@ -2,22 +2,34 @@ import React, { useState } from 'react'
 import styles from './ProfileSettings.module.scss'
 import NamedInput from '../../UI/namedInput/NamedInput'
 import SaveButton from '../../UI/buttons/saveButton/SaveButton'
+import { useUpdateUsernameMutation } from '../../../redux/services/userService'
+import { useNotification } from '../../../providers/notification/NotificationProvider'
 
 const ProfileSettings: React.FC = () => {
 
+    const { addNotification } = useNotification()
+    const [fetchToChangeUsername] = useUpdateUsernameMutation()
     const [isDisabledButton, setIsDisabledButton] = useState<boolean>(true)
     const [profileNameValue, setProfileNameValue] = useState<string>('')
     const [profileNameChangeValue, setProfileNameChangeValue] = useState<string>('')
 
-    function handleSaveProfileName() {
-        setProfileNameValue(profileNameChangeValue)
-        setIsDisabledButton(true)
+    async function handleSaveProfileName() {
+        try {
+            const result = await fetchToChangeUsername(profileNameChangeValue)
+            console.log(result)
+
+            if (result.data?.success) {
+                setProfileNameValue(profileNameChangeValue)
+                setIsDisabledButton(true)
+                addNotification('Никнейм был обновлён')
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     function handleTradeLinkInput(event: React.ChangeEvent<HTMLInputElement>) {
-        if (!event.target.value) {
-            setIsDisabledButton(true)
-        } else if (profileNameValue === event.target.value) {
+        if (!event.target.value || profileNameValue === event.target.value || event.target.value.length < 3) {
             setIsDisabledButton(true)
         } else {
             setIsDisabledButton(false)

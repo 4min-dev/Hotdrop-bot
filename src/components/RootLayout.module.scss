@@ -11,7 +11,13 @@
     background-image: url('/src/static/img/top-bottom-purple-effect.png');
     background-size: 100% 100%;
     background-position: top;
-    padding: 24px 20px 120px 20px;
+    padding: 24px 20px 0px 20px;
+
+    &#personalProfilePopup {
+        .userExperienceIndicatorWrapper {
+            height: 20px !important;
+        }
+    }
 
     .closePopupButton {
         width: 32px;
@@ -70,7 +76,11 @@
     }
 
     .userProfileContent {
+        position: relative;
         margin-top: 32px;
+        min-height: 73%;
+        padding-bottom: 125px;
+        max-height: fit-content;
 
         .userProfileAvatarContainer {
             margin-left: auto;
@@ -125,8 +135,10 @@
             }
 
             .userProfileAvatar {
-                width: 82px;
+                width: 94px;
                 height: 94px;
+                border-radius: 1000px;
+                overflow: hidden;
 
                 img {
                     filter: drop-shadow(0px 0px 19.1px rgba(249, 143, 22, 0.7));
@@ -171,7 +183,7 @@
 
             .userExperienceIndicatorWrapper {
                 position: relative;
-                height: 20px;
+                height: 28px;
                 border-radius: 1000px;
                 background: rgba(255, 255, 255, 0.2);
 
@@ -188,7 +200,7 @@
                     font-family: "Geist Mono", monospace;
                     font-weight: 500;
                     font-size: 13px;
-                    color:rgba(255, 255, 255, .5);
+                    color: rgba(255, 255, 255, .5);
                     margin-right: 8px;
                 }
 
@@ -200,7 +212,6 @@
                     border-radius: inherit;
                     background: rgba(255, 255, 255, 1);
                     box-shadow: 0px 0px 12.5px 0px rgba(255, 255, 255, 0.5);
-                    width: 232px;
                 }
             }
 
@@ -304,10 +315,9 @@
                             height: 48px;
                             border-radius: 16px;
                             background: rgba(68, 66, 70, 1);
-                          
 
                             img {
-                                
+                                border-radius: inherit;
                                 width: 36px;
                                 height: 36px;
                             }
@@ -386,7 +396,7 @@
                         .userTableNumericId {
                             color: #9D49F1;
                             text-shadow: 0px 0px 8px #7C34C4,
-                            0px 0px 9.5px #9D49F133;
+                                0px 0px 9.5px #9D49F133;
 
                             &::first-letter {
                                 color: #9D49F1;
@@ -396,16 +406,18 @@
                 }
             }
         }
-    }
 
-    .copyright {
-        position: relative;
-        top: 80px;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 18.2px;
-        color: rgba(100, 100, 100, 1);
-        display: flex;
-        justify-content: center;
+        .copyright {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 18.2px;
+            color: rgba(100, 100, 100, 1);
+            display: flex;
+            justify-content: center;
+        }
     }
 }

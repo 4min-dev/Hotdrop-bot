@@ -7,7 +7,7 @@ type TFilters = {
     setFilters: React.Dispatch<React.SetStateAction<IFilter[]>>
 }
 
-const Filter: React.FC<TFilters> = ({ filters, setFilters}) => {
+const Filter: React.FC<TFilters> = ({ filters, setFilters }) => {
 
     function filterHandler(filter: IFilter) {
         setFilters((prev) =>
@@ -43,7 +43,7 @@ const Filter: React.FC<TFilters> = ({ filters, setFilters}) => {
         <div className={`flex align__center ${styles.filter}`}>
             {
                 filters && filters.length > 0 && filters.map((filter) => (
-                    <button type='button' className={`${styles.filterButton} ${filter.isActive ? styles.active : ''}`} onClick={() => filterHandler(filter)}>
+                    <button key={filter.id} type='button' className={`${styles.filterButton} ${filter.isActive ? styles.active : ''}`} onClick={() => filterHandler(filter)}>
                         {filter.title}
                     </button>
                 ))

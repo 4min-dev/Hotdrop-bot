@@ -1,5 +1,4 @@
 .exchangeTokenCard {
-    height: fit-content;
     gap: 6px;
     padding: 32px 20px;
     position: relative;
@@ -8,9 +7,11 @@
     width: 100%;
     background: rgba(35, 35, 37, 1);
     border-radius: 32px;
+    height: calc(133px - 64px);
 
     &:nth-child(1) {
         border-radius: 0px 0px 32px 32px;
+        height: calc(122px - 64px) !important;
     }
 
     .exchangeAboutTokenContainer {
@@ -23,6 +24,7 @@
                 font-weight: 600;
                 font-size: 32px;
                 line-height: 32px;
+                white-space: nowrap;
                 color: white;
             }
         }
@@ -50,6 +52,11 @@
                     font-weight: 500;
                     font-size: 14px;
                     line-height: 15.4px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: block;
+                    max-width: 125px;
                     color: rgba(255, 255, 255, .5);
                 }
             }
@@ -58,13 +65,19 @@
 
     .exchangeValueInput {
         font-weight: 500;
+        text-align: right;
         font-size: 48px;
         line-height: 48px;
         outline: none;
         border: none;
         background: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-left: auto;
         color: white;
-        max-width: 80px;
+        max-width: 138px;
+        text-align: right;
 
         &:last-child {
             &::placeholder {
@@ -196,6 +209,8 @@
     .exchangedTokensContainer {
         margin-top: 32px;
         gap: 16px;
+        margin-left: 32px;
+        margin-right: 32px;
 
         .exchangedTokenContainer {
             gap: 4px;
@@ -206,7 +221,7 @@
                 font-size: 32px;
                 line-height: 35.2px;
                 color: white;
-                max-width: 200px;
+                max-width: 125px;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
@@ -233,9 +248,9 @@
 
 .calculatePanel {
     position: fixed;
-    left:0;
-    right:0;
-    bottom:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     transform: translateY(100%);
     height: calc(374px - (32px + 19px));
     border-top-left-radius: 32px;
@@ -260,7 +275,7 @@
         font-weight: 500;
         font-size: 32px;
         line-height: 100%;
-        color:white;
+        color: white;
         z-index: 2;
 
         &::before {
@@ -277,7 +292,7 @@
             &::before {
                 background: rgba(255, 255, 255, 0.1);
             }
-            
+
         }
     }
 }

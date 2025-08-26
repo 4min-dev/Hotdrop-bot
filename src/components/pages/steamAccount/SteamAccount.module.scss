@@ -50,6 +50,9 @@
             }
 
             .steamConnectLinkStatus {
+                outline: none;
+                border: none;
+
                 &.connectedStatus {
                     padding: 5px 8px;
                     border: 1px solid rgba(11, 179, 11, 1);
@@ -78,6 +81,10 @@
                     color: white;
                     border-radius: 12px;
                     text-decoration: none;
+                }
+
+                &:disabled {
+                    opacity: .5;
                 }
             }
         }

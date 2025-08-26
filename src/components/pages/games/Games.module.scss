@@ -1,7 +1,7 @@
 .gameCard {
     position: relative;
     width: 100%;
-    min-height: 292px;
+    height: calc(292px - 18px);
     border-radius: 28px;
     padding: 8px;
     border: 0.8px solid #F5F5F51A;
@@ -10,14 +10,24 @@
     background-position: center;
     background-clip: padding-box;
 
+    &:nth-child(2) {
+        .gameCardPreview {
+            rotate: -42deg;
+            width: 541px;
+            height: 503px;
+            right: -202px;
+            bottom: -154px;
+        }
+    }
+
     &:nth-child(3) {
         .gameCardPreview {
             transform: scaleX(-1);
             width: 361px;
             height: 335px;
-            right:0;
-            top:-2px;
-            bottom:-49px;
+            right: 0;
+            top: -2px;
+            bottom: -49px;
         }
 
         position: relative;
@@ -27,11 +37,11 @@
             background: rgba(73, 192, 234, 1);
             width: 237px;
             height: 266px;
-            bottom:-3px;
-            right:-1px;
+            bottom: -3px;
+            right: -1px;
             content: '';
             display: inline-block;
-            filter:blur(47px)
+            filter: blur(47px)
         }
     }
 
@@ -49,8 +59,17 @@
         .headingCard {
             position: relative;
             z-index: 20;
+            height: calc(52px - 21px);
             padding: 10.5px 24px 10.5px 16px;
             border-radius: 20px;
+
+            &:nth-child(1) {
+                width: calc(138px - (24px + 16px));
+            }
+
+            &:nth-child(2) {
+                width: calc(147px - (24px + 16px));
+            }
 
             &::before {
                 position: absolute;
@@ -124,6 +143,10 @@
                 font-weight: 600;
                 font-size: 14px;
                 line-height: 15.4px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 65px;
                 color: white;
             }
 
@@ -203,7 +226,7 @@
 
             .startGameButton {
                 position: relative;
-                width: 112px;
+                width: calc(112px - 40px);
                 text-decoration: none;
                 height: 44px;
                 border-radius: 16px;
@@ -212,6 +235,12 @@
                 padding-left: 20px;
                 outline: none;
                 border: none;
+
+                &.inactive {
+                    opacity: .5;
+                    pointer-events: none;
+                    touch-action: none;
+                }
 
                 &::before {
                     position: absolute;
@@ -240,7 +269,7 @@
 
 
                 svg path {
-                    fill:var(--svg-fill)
+                    fill: var(--svg-fill)
                 }
             }
         }

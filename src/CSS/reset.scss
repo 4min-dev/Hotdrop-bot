@@ -21,9 +21,10 @@
     font-style: normal;
 }
 
-*, body {
-    margin:0;
-    padding:0;
+*,
+body {
+    margin: 0;
+    padding: 0;
     font-family: 'Gilroy', sans-serif;
     user-select: none;
 }
@@ -58,4 +59,12 @@
 
 .text__center {
     text-align: center;
+}
+
+#noAnimations * {
+    transition: none !important;
+}
+
+.swiper {
+    padding-left: 20px !important;
 }

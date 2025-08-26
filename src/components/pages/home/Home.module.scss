@@ -8,6 +8,8 @@
     }
 
     .headingContainer {
+        position: relative;
+        z-index: 20;
         gap: 20px;
 
         .levelExperienceContainer {
@@ -40,7 +42,8 @@
                 background: #1F1F1F;
 
                 .experienceBarIndicator {
-                    width: 80px;
+                    width: 0px;
+                    transition: width .4s;
                     height: 100%;
                     border-radius: inherit;
                     background: #8B2DE9;
@@ -64,6 +67,7 @@
                 -4px 4px 19px 0px #FFFFFF40 inset,
                 4px -4px 16.6px 0px #8A2EE8 inset,
                 -4px 4px 19px 0px #FFFFFF40 inset;
+            text-decoration: none !important;
 
             .calendarDay {
                 font-weight: 600;
@@ -76,6 +80,7 @@
     }
 
     .balanceCard {
+        position: relative;
         background-image: url('/src/static/img/balance-background.jpg');
         background-size: 100% 100%;
         background-repeat: no-repeat;
@@ -83,7 +88,7 @@
         padding: 20px 24px;
         border-radius: 28px;
         box-shadow: 0px 0px 22.1px 52px rgba(114, 23, 214, 0.2);
-        z-index: -1;
+        z-index: 1;
         margin-top: 32px;
         min-height: calc(181px - (20px * 2));
 
@@ -110,12 +115,20 @@
                         font-size: 36px;
                         line-height: 36px;
                         color: white;
+                        font-weight: 600;
+                        max-width: 208px;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        display: block;
+                        text-overflow: ellipsis;
                     }
                 }
             }
 
             .selectWalletButton {
-                position: relative;
+                position: absolute;
+                top: 24px;
+                right: 20px;
                 width: 70px;
                 height: 36px;
                 gap: 8px;
@@ -208,8 +221,7 @@
     .tokensSwiperContainer {
         overflow: visible;
         margin-top: 24px;
-        width: 100vw;
-        left: -20px;
+        width: 100%;
 
         &::before,
         &::after {
@@ -243,11 +255,9 @@
         }
 
         .tokensSwiperCard {
-            width: fit-content;
             height: calc(64px - (12px * 2));
             min-height: calc(64px - (12px * 2));
             max-height: calc(64px - (12px * 2));
-            margin-right: auto;
             gap: 32px;
             border-radius: 22px;
             padding: 12px 12px 12px 0px;
@@ -436,7 +446,7 @@
             font-weight: 600;
             font-size: 16px;
             line-height: 100%;
-            color:white;
+            color: white;
         }
     }
 
@@ -536,10 +546,11 @@
                         height: 32px;
                         border-radius: 1000px;
                         background: #434145;
+                        transition: all .4s;
 
                         &.blured {
                             position: relative;
-                            filter:blur(3px);
+                            filter: blur(3px);
                             border-radius: inherit;
                         }
 
@@ -564,6 +575,8 @@
                     font-size: 16px;
                     line-height: 16px;
                     color: #646464;
+                    white-space: nowrap;
+                    max-width: 30%;
                 }
 
                 .timeoutValueContainer {
@@ -613,6 +626,14 @@
                     line-height: 16px;
                     color: white;
                 }
+            }
+
+            &.notActiveFarming {
+                margin-top: 24px;
+            }
+
+            &.disabled {
+                opacity: .6;
             }
         }
     }
@@ -672,6 +693,10 @@
                     font-size: 16px;
                     line-height: 16px;
                     color: white;
+                }
+
+                &.inactive {
+                    opacity: .5;
                 }
             }
         }

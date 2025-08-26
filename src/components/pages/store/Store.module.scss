@@ -12,6 +12,7 @@
 
         .aboutItemTextContainer {
             gap: 8px;
+            max-width: 62%;
 
             .itemTitle {
                 font-weight: 500;
@@ -27,7 +28,12 @@
                 line-height: 14.4px;
                 color: white;
                 padding: 3.5px 8px;
+                width: fit-content;
                 border-radius: 1000px;
+
+                &::first-letter {
+                    text-transform: uppercase;
+                }
             }
         }
     }
@@ -64,7 +70,7 @@
                 font-size: 13px;
                 line-height: 13px;
                 color: white;
-                gap:4px;
+                gap: 4px;
 
                 .pricePart {
                     font-family: "Geist Mono", sans-serif;

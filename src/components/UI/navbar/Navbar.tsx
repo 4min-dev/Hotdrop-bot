@@ -61,10 +61,10 @@ const Navbar: React.FC = () => {
             return location.pathname === link.link
         }
 
-        return location.pathname.startsWith(link.link || 'guns')
+        return location.pathname.startsWith(link.link)
     }
 
-    const isNavbarVisible = navbarLinks.some((link) => isActive(link)) || location.pathname.includes('guns');
+    const isNavbarVisible = (navbarLinks.some((link) => isActive(link)) || location.pathname.includes('guns')) && !window.location.href.includes('games/') && !window.location.href.includes('guns')
 
     return (
         isNavbarVisible && (

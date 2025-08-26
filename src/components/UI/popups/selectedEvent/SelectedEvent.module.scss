@@ -2,15 +2,15 @@
 
 .selectedEventPopup {
     position: fixed;
-    left:0;
-    right:0;
+    left: 0;
+    right: 0;
     padding: 20px 20px 25px 20px;
     border-radius: 36px 36px 0px 0px;
     border-top: 4px solid rgba(60, 60, 60, 1);
     background: rgba(23, 23, 25, 1);
-    bottom:0;
+    bottom: 0;
     height: fit-content;
-    top:auto !important;
+    top: auto !important;
 
     .closePopupButton {
         position: absolute;
@@ -47,6 +47,7 @@
             position: relative;
             width: 96px;
             height: 96px;
+            overflow: hidden;
             border-radius: 24px;
             background: rgba(255, 255, 255, 0.2);
             border: 0.8px solid rgba(89, 89, 89, 1);
@@ -121,9 +122,9 @@
             }
 
             .selectedEventCopyLinkButton {
-                background:none;
+                background: none;
                 outline: none;
-                border:none;
+                border: none;
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
@@ -177,7 +178,7 @@
 
         .completeButton {
             outline: none;
-            border:none;
+            border: none;
             margin-top: 40px;
             height: 48px;
             border-radius: 16px;
@@ -188,7 +189,7 @@
             font-weight: 600;
             font-size: 16px;
             line-height: 100%;
-            color:white;
+            color: white;
         }
     }
 }

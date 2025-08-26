@@ -1,21 +1,20 @@
 import React from 'react'
 import styles from './SelectedEvent.module.scss'
 import Popup from '../popup/Popup'
-import IEventsData from '../../../../interfaces/IEventData'
-import getImage from '../../../../assets/getImage'
 import { useNotification } from '../../../../providers/notification/NotificationProvider'
+import ITask from '../../../../interfaces/ITask'
 
 type TSelectedEvent = {
     isSelectedEventActive: boolean,
     closeSelectedEventHandler: () => void,
-    selectedEvent: IEventsData
+    selectedEvent: ITask
 }
 
 const SelectedEvent: React.FC<TSelectedEvent> = ({ isSelectedEventActive, closeSelectedEventHandler, selectedEvent }) => {
     const { addNotification } = useNotification()
 
     function getFormattedReward() {
-        const reward = selectedEvent.reward
+        const reward = selectedEvent.free_coins_reward
         const formattedNumber = reward.toLocaleString()
 
         const parts = formattedNumber.split(',')
@@ -42,7 +41,7 @@ const SelectedEvent: React.FC<TSelectedEvent> = ({ isSelectedEventActive, closeS
 
     function handleCopyLink() {
         addNotification('Ссылка успешно скопирована!')
-        navigator.clipboard.writeText(selectedEvent.linkToEvent)
+        navigator.clipboard.writeText(selectedEvent.linkToEvent!)
     }
 
     return (
@@ -59,7 +58,7 @@ const SelectedEvent: React.FC<TSelectedEvent> = ({ isSelectedEventActive, closeS
 
                             <div className={`flex column align__center ${styles.selectedEventHeading}`}>
                                 <div className={`flex align__center ${styles.selectedEventPreview}`} style={{ "--background-color": selectedEvent.backgroundEffect }}>
-                                    <img src={getImage(selectedEvent.img)} alt={selectedEvent.title} />
+                                    <img src={selectedEvent.img_url} alt={selectedEvent.title} />
                                 </div>
 
                                 <span className={styles.selectedEventTitle}>
@@ -74,41 +73,49 @@ const SelectedEvent: React.FC<TSelectedEvent> = ({ isSelectedEventActive, closeS
                             </div>
 
                             <div className={`flex column ${styles.selectedEventMainUi}`}>
-                                <div className={`flex align__center ${styles.selectedEventCopyContainer}`}>
-                                    <span className={styles.selectedEventLinkToCopy}>
-                                        {selectedEvent.linkToEvent}
-                                    </span>
+                                {
+                                    selectedEvent.linkToEvent && (
+                                        <div className={`flex align__center ${styles.selectedEventCopyContainer}`}>
+                                            <span className={styles.selectedEventLinkToCopy}>
+                                                {selectedEvent.linkToEvent}
+                                            </span>
 
-                                    <button type='button' className={styles.selectedEventCopyLinkButton} onClick={handleCopyLink}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
-                                            <path d="M6.125 2.53125C6.125 1.75425 6.755 1.125 7.53125 1.125H7.8125C8.55842 1.125 9.27379 1.42132 9.80124 1.94876C10.3287 2.47621 10.625 3.19158 10.625 3.9375V5.34375C10.625 6.12075 11.255 6.75 12.0312 6.75H13.4375C14.1834 6.75 14.8988 7.04632 15.4262 7.57376C15.9537 8.10121 16.25 8.81658 16.25 9.5625V12.0938C16.25 12.87 15.62 13.5 14.8438 13.5H7.53125C7.15829 13.5 6.8006 13.3518 6.53688 13.0881C6.27316 12.8244 6.125 12.4667 6.125 12.0938V2.53125Z" fill="white" />
-                                            <path d="M11.75 3.93756C11.7513 2.99147 11.4106 2.07678 10.7907 1.36206C12.0457 1.69203 13.1905 2.34942 14.1081 3.26698C15.0256 4.18453 15.683 5.32934 16.013 6.58431C15.2983 5.96442 14.3836 5.62375 13.4375 5.62506H12.0312C11.9567 5.62506 11.8851 5.59543 11.8324 5.54268C11.7796 5.48994 11.75 5.4184 11.75 5.34381V3.93756ZM4.15625 4.50006H5V12.0938C5 12.7651 5.26668 13.409 5.74139 13.8837C6.21609 14.3584 6.85992 14.6251 7.53125 14.6251H12.875V15.4688C12.875 16.2451 12.245 16.8751 11.4688 16.8751H4.15625C3.78329 16.8751 3.4256 16.7269 3.16188 16.4632C2.89816 16.1995 2.75 15.8418 2.75 15.4688V5.90631C2.75 5.12931 3.38 4.50006 4.15625 4.50006Z" fill="white" />
-                                        </svg>
-                                    </button>
-                                </div>
-
-                                <div className={`flex ${styles.hintContainer}`}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M2.375 10C2.375 5.5125 6.0125 1.875 10.5 1.875C14.9875 1.875 18.625 5.5125 18.625 10C18.625 14.4875 14.9875 18.125 10.5 18.125C6.0125 18.125 2.375 14.4875 2.375 10ZM9.63 8.79833C10.585 8.32083 11.6608 9.18417 11.4017 10.22L10.8108 12.5833L10.8458 12.5667C10.9927 12.5021 11.1587 12.4965 11.3096 12.551C11.4605 12.6054 11.5846 12.7158 11.6564 12.8593C11.7281 13.0028 11.7419 13.1684 11.695 13.3217C11.648 13.4751 11.5439 13.6046 11.4042 13.6833L11.3708 13.7017C10.415 14.1792 9.33917 13.3158 9.59833 12.28L10.19 9.91667L10.155 9.93333C10.0813 9.9743 10 9.99993 9.91615 10.0087C9.83226 10.0174 9.74748 10.0091 9.6669 9.98418C9.58632 9.95928 9.51161 9.91834 9.44727 9.86381C9.38294 9.80927 9.3303 9.74229 9.29254 9.66687C9.25478 9.59146 9.23267 9.50919 9.22754 9.425C9.22242 9.34082 9.23439 9.25647 9.26272 9.17704C9.29106 9.0976 9.33518 9.02472 9.39243 8.96279C9.44968 8.90086 9.51887 8.85115 9.59583 8.81667L9.63 8.79833ZM10.5 7.5C10.6658 7.5 10.8247 7.43415 10.9419 7.31694C11.0592 7.19973 11.125 7.04076 11.125 6.875C11.125 6.70924 11.0592 6.55027 10.9419 6.43306C10.8247 6.31585 10.6658 6.25 10.5 6.25C10.3342 6.25 10.1753 6.31585 10.0581 6.43306C9.94085 6.55027 9.875 6.70924 9.875 6.875C9.875 7.04076 9.94085 7.19973 10.0581 7.31694C10.1753 7.43415 10.3342 7.5 10.5 7.5Z" fill="white" />
-                                    </svg>
-
-                                    <span className={styles.hint}>
-                                        {selectedEvent.hint}
-                                    </span>
-                                </div>
+                                            <button type='button' className={styles.selectedEventCopyLinkButton} onClick={handleCopyLink}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+                                                    <path d="M6.125 2.53125C6.125 1.75425 6.755 1.125 7.53125 1.125H7.8125C8.55842 1.125 9.27379 1.42132 9.80124 1.94876C10.3287 2.47621 10.625 3.19158 10.625 3.9375V5.34375C10.625 6.12075 11.255 6.75 12.0312 6.75H13.4375C14.1834 6.75 14.8988 7.04632 15.4262 7.57376C15.9537 8.10121 16.25 8.81658 16.25 9.5625V12.0938C16.25 12.87 15.62 13.5 14.8438 13.5H7.53125C7.15829 13.5 6.8006 13.3518 6.53688 13.0881C6.27316 12.8244 6.125 12.4667 6.125 12.0938V2.53125Z" fill="white" />
+                                                    <path d="M11.75 3.93756C11.7513 2.99147 11.4106 2.07678 10.7907 1.36206C12.0457 1.69203 13.1905 2.34942 14.1081 3.26698C15.0256 4.18453 15.683 5.32934 16.013 6.58431C15.2983 5.96442 14.3836 5.62375 13.4375 5.62506H12.0312C11.9567 5.62506 11.8851 5.59543 11.8324 5.54268C11.7796 5.48994 11.75 5.4184 11.75 5.34381V3.93756ZM4.15625 4.50006H5V12.0938C5 12.7651 5.26668 13.409 5.74139 13.8837C6.21609 14.3584 6.85992 14.6251 7.53125 14.6251H12.875V15.4688C12.875 16.2451 12.245 16.8751 11.4688 16.8751H4.15625C3.78329 16.8751 3.4256 16.7269 3.16188 16.4632C2.89816 16.1995 2.75 15.8418 2.75 15.4688V5.90631C2.75 5.12931 3.38 4.50006 4.15625 4.50006Z" fill="white" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    )
+                                }
 
                                 {
-                                    selectedEvent.etaps.length > 0 && (
+                                    selectedEvent.hint && (
+                                        <div className={`flex ${styles.hintContainer}`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M2.375 10C2.375 5.5125 6.0125 1.875 10.5 1.875C14.9875 1.875 18.625 5.5125 18.625 10C18.625 14.4875 14.9875 18.125 10.5 18.125C6.0125 18.125 2.375 14.4875 2.375 10ZM9.63 8.79833C10.585 8.32083 11.6608 9.18417 11.4017 10.22L10.8108 12.5833L10.8458 12.5667C10.9927 12.5021 11.1587 12.4965 11.3096 12.551C11.4605 12.6054 11.5846 12.7158 11.6564 12.8593C11.7281 13.0028 11.7419 13.1684 11.695 13.3217C11.648 13.4751 11.5439 13.6046 11.4042 13.6833L11.3708 13.7017C10.415 14.1792 9.33917 13.3158 9.59833 12.28L10.19 9.91667L10.155 9.93333C10.0813 9.9743 10 9.99993 9.91615 10.0087C9.83226 10.0174 9.74748 10.0091 9.6669 9.98418C9.58632 9.95928 9.51161 9.91834 9.44727 9.86381C9.38294 9.80927 9.3303 9.74229 9.29254 9.66687C9.25478 9.59146 9.23267 9.50919 9.22754 9.425C9.22242 9.34082 9.23439 9.25647 9.26272 9.17704C9.29106 9.0976 9.33518 9.02472 9.39243 8.96279C9.44968 8.90086 9.51887 8.85115 9.59583 8.81667L9.63 8.79833ZM10.5 7.5C10.6658 7.5 10.8247 7.43415 10.9419 7.31694C11.0592 7.19973 11.125 7.04076 11.125 6.875C11.125 6.70924 11.0592 6.55027 10.9419 6.43306C10.8247 6.31585 10.6658 6.25 10.5 6.25C10.3342 6.25 10.1753 6.31585 10.0581 6.43306C9.94085 6.55027 9.875 6.70924 9.875 6.875C9.875 7.04076 9.94085 7.19973 10.0581 7.31694C10.1753 7.43415 10.3342 7.5 10.5 7.5Z" fill="white" />
+                                            </svg>
+
+                                            <span className={styles.hint}>
+                                                {selectedEvent.hint}
+                                            </span>
+                                        </div>
+                                    )
+                                }
+
+                                {
+                                    selectedEvent.steps.length > 0 && (
                                         <div className={`flex column ${styles.etapsContainer}`}>
                                             {
-                                                selectedEvent.etaps.map((etap, i) => (
-                                                    <div key={etap.id} className={`flex align__center ${styles.etapCard}`}>
+                                                selectedEvent.steps.map((step, i) => (
+                                                    <div key={`${step}_id=${i}`} className={`flex align__center ${styles.etapCard}`}>
                                                         <span className={`flex align__center justify__center ${styles.etapNumber}`}>
                                                             {i + 1}
                                                         </span>
 
                                                         <span className={styles.etapTitle}>
-                                                            {etap.title}
+                                                            {step}
                                                         </span>
                                                     </div>
                                                 ))

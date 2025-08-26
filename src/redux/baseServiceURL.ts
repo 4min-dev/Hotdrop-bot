@@ -1,0 +1,1 @@
+export const baseServiceURL: string = 'https://hotdrop-api-dev.wizardstech.ru/'

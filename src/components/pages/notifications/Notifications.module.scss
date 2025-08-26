@@ -26,6 +26,10 @@
                     font-size: 18px;
                     line-height: 100%;
                     color: white;
+
+                    &::first-letter {
+                        text-transform: uppercase;
+                    }
                 }
 
                 .notificationType {
@@ -37,6 +41,15 @@
                     font-size: 12px;
                     line-height: 120%;
                     color: white;
+
+                    .firstLetter {
+                        font-family: "Geist Mono", sans-serif;
+                        font-weight: 500;
+                        font-size: 12px;
+                        line-height: 120%;
+                        color: white;
+                        text-transform: uppercase;
+                    }
                 }
             }
 
@@ -45,7 +58,11 @@
                 font-weight: 400;
                 font-size: 14px;
                 line-height: 140%;
-                color: rgba(255, 255, 255, .8)
+                color: rgba(255, 255, 255, .8);
+
+                &::first-letter {
+                    text-transform: uppercase;
+                }
             }
 
             .notificationFooter {
